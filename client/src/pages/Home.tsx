@@ -13,6 +13,7 @@ import DataSection from "@/components/DataSection";
 import NewsSection from "@/components/NewsSection";
 import JoinSection from "@/components/JoinSection";
 import Footer from "@/components/Footer";
+import PartnerLogoWall from "@/components/PartnerLogoWall";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <ResearchSection />
         <MethodsSection />
         <TeamSection />
+        <PartnerLogoWall />
         <DataSection />
         <NewsSection />
         <JoinSection />

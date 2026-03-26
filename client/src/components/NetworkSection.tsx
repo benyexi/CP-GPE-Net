@@ -1,48 +1,36 @@
 /**
  * Network Section — CP-GPE Net
- * CartoDB Voyager basemap, dark section bg,
- * golden pulsing markers, China-focused default view, Yellow River Basin overlay.
- * Default view: China center [35, 105] zoom 4. "All" shows all sites but stays China-focused.
+ * Esri World Topo Map basemap, dark section bg,
+ * red pulsing markers with POPUP (not tooltip) showing site details.
+ * Default view: China center [35, 105] zoom 4.
  */
 import { useState, useMemo, useEffect, useCallback, useRef } from "react";
-import { MapContainer, TileLayer, CircleMarker, Tooltip, Polygon, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Popup, Polygon, useMap } from "react-leaflet";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { MapPin, Filter, ExternalLink } from "lucide-react";
+import { MapPin, Filter, ExternalLink, TreePine, Mountain, Calendar, Wrench } from "lucide-react";
 import { monitoringSites, regions, regionsCn, yellowRiverBasinCoords, type MonitoringSite } from "@/lib/siteData";
 import { useLang } from "@/contexts/LanguageContext";
 import SiteDetailModal from "./SiteDetailModal";
 import "leaflet/dist/leaflet.css";
 
-/**
- * MapController — handles view changes when region filter changes.
- * On initial load ("All"), stays at China center [35, 105] zoom 4.
- * When user selects a specific region, flies to fit those sites.
- */
 function MapController({ activeRegion, sites }: { activeRegion: string; sites: MonitoringSite[] }) {
   const map = useMap();
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    // Skip first render — MapContainer already sets center/zoom
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
-
     if (sites.length === 0) return;
 
-    if (activeRegion === "All") {
-      // "All" — show China-centered view (most sites are in China)
-      map.flyTo([35, 105], 4, { duration: 1.2 });
-    } else if (activeRegion === "China") {
+    if (activeRegion === "All" || activeRegion === "China") {
       map.flyTo([35, 105], 4, { duration: 1.2 });
     } else if (activeRegion === "International") {
-      // Fit to show all international sites
       const bounds = sites.map((s) => [s.latitude, s.longitude] as [number, number]);
       map.flyToBounds(bounds, { padding: [80, 80], maxZoom: 5, duration: 1.2 });
     } else {
-      // Sub-region — fit to those sites
       const bounds = sites.map((s) => [s.latitude, s.longitude] as [number, number]);
       if (bounds.length === 1) {
         map.flyTo(bounds[0], 8, { duration: 1.2 });
@@ -55,7 +43,7 @@ function MapController({ activeRegion, sites }: { activeRegion: string; sites: M
   return null;
 }
 
-function PulsingMarker({ site, lang, onClick }: { site: MonitoringSite; lang: string; onClick: (site: MonitoringSite) => void }) {
+function PulsingMarker({ site, lang, onDetailClick }: { site: MonitoringSite; lang: string; onDetailClick: (site: MonitoringSite) => void }) {
   return (
     <>
       <CircleMarker
@@ -79,18 +67,69 @@ function PulsingMarker({ site, lang, onClick }: { site: MonitoringSite; lang: st
           weight: 2.5,
           opacity: 1,
         }}
-        eventHandlers={{ click: () => onClick(site) }}
       >
-        <Tooltip direction="top" offset={[0, -12]} opacity={0.95}>
-          <div className="text-center px-1">
-            <div className="font-semibold text-sm text-forest-800" style={{ fontFamily: "'Playfair Display', serif" }}>
+        <Popup maxWidth={320} minWidth={240} className="site-popup">
+          <div className="p-1">
+            {/* Site Name */}
+            <h3 className="text-base font-bold text-forest-900 mb-0.5" style={{ fontFamily: "'Playfair Display', serif" }}>
               {lang === "en" ? site.nameEn : site.nameCn}
+            </h3>
+            <p className="text-xs text-forest-500 mb-3" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+              {lang === "en" ? site.nameCn : site.nameEn}
+            </p>
+
+            {/* Info Grid */}
+            <div className="space-y-2">
+              {/* Species */}
+              <div className="flex items-center gap-2">
+                <TreePine size={13} className="text-forest-500 flex-shrink-0" />
+                <span className="text-xs text-forest-700 italic" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+                  {lang === "en" ? site.speciesEn : site.speciesCn}
+                </span>
+              </div>
+
+              {/* Elevation */}
+              {site.elevationM !== undefined && (
+                <div className="flex items-center gap-2">
+                  <Mountain size={13} className="text-forest-500 flex-shrink-0" />
+                  <span className="text-xs text-forest-700" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+                    {site.elevationM} m a.s.l.
+                  </span>
+                </div>
+              )}
+
+              {/* Established */}
+              {site.established && (
+                <div className="flex items-center gap-2">
+                  <Calendar size={13} className="text-forest-500 flex-shrink-0" />
+                  <span className="text-xs text-forest-700" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+                    {lang === "en" ? `Est. ${site.established}` : `${site.established}年建站`}
+                  </span>
+                </div>
+              )}
+
+              {/* Instruments */}
+              {(site.instrumentsEn || site.instrumentsCn) && (
+                <div className="flex items-start gap-2">
+                  <Wrench size={13} className="text-forest-500 flex-shrink-0 mt-0.5" />
+                  <div className="text-xs text-forest-700 leading-relaxed" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+                    {(lang === "en" ? site.instrumentsEn : site.instrumentsCn)?.join(" · ")}
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="text-xs text-forest-500 mt-0.5" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
-              {lang === "en" ? "Click for details" : "点击查看详情"}
-            </div>
+
+            {/* View Details Button */}
+            <button
+              onClick={(e) => { e.stopPropagation(); onDetailClick(site); }}
+              className="mt-3 w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-forest-700 text-white text-xs font-medium hover:bg-forest-800 transition-colors"
+              style={{ fontFamily: "'Source Sans 3', sans-serif" }}
+            >
+              <ExternalLink size={12} />
+              {lang === "en" ? "Full Details" : "查看完整详情"}
+            </button>
           </div>
-        </Tooltip>
+        </Popup>
       </CircleMarker>
     </>
   );
@@ -113,7 +152,7 @@ export default function NetworkSection() {
     return monitoringSites.filter((s) => s.region === activeRegion);
   }, [activeRegion]);
 
-  const handleSiteClick = useCallback((site: MonitoringSite) => {
+  const handleDetailClick = useCallback((site: MonitoringSite) => {
     setSelectedSite(site);
     setModalOpen(true);
   }, []);
@@ -186,7 +225,6 @@ export default function NetworkSection() {
               zoomControl={true}
               scrollWheelZoom={true}
             >
-              {/* Stamen Terrain for clear boundaries + natural look */}
               <TileLayer
                 url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
                 attribution='&copy; Esri, HERE, Garmin, OpenStreetMap contributors'
@@ -208,7 +246,7 @@ export default function NetworkSection() {
               )}
 
               {filteredSites.map((site) => (
-                <PulsingMarker key={site.id} site={site} lang={lang} onClick={handleSiteClick} />
+                <PulsingMarker key={site.id} site={site} lang={lang} onDetailClick={handleDetailClick} />
               ))}
             </MapContainer>
           </div>
@@ -238,7 +276,7 @@ export default function NetworkSection() {
           {/* Click hint */}
           <div className="absolute bottom-4 right-4 z-[1000] bg-white/90 backdrop-blur-sm border border-forest-200 rounded-lg px-3 py-2 shadow-lg">
             <span className="text-xs text-forest-500" style={{ fontFamily: "var(--font-body)" }}>
-              {t("Click a marker for site details", "点击标记查看站点详情")}
+              {t("Click a marker for site info", "点击标记查看站点信息")}
             </span>
           </div>
         </motion.div>
@@ -267,7 +305,7 @@ export default function NetworkSection() {
                 <tr
                   key={site.id}
                   className={`border-b border-forest-700/20 hover:bg-forest-700/30 transition-colors cursor-pointer ${i % 2 === 0 ? "bg-forest-800/20" : ""}`}
-                  onClick={() => handleSiteClick(site)}
+                  onClick={() => handleDetailClick(site)}
                 >
                   <td className="py-3 px-4 text-sm text-forest-500" style={{ fontFamily: "var(--font-mono)" }}>{String(i + 1).padStart(2, "0")}</td>
                   <td className="py-3 px-4">
@@ -285,7 +323,7 @@ export default function NetworkSection() {
                   <td className="py-3 px-4 text-center">
                     <button
                       className="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-forest-600/40 transition-colors text-forest-400 hover:text-amber-400"
-                      onClick={(e) => { e.stopPropagation(); handleSiteClick(site); }}
+                      onClick={(e) => { e.stopPropagation(); handleDetailClick(site); }}
                     >
                       <ExternalLink size={14} />
                     </button>
