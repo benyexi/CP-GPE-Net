@@ -82,11 +82,10 @@ const partnerInstitutions = [
   { en: "Shanxi Agricultural University", cn: "山西农业大学", abbr: "SXAU" },
   { en: "Inner Mongolia University", cn: "内蒙古大学", abbr: "IMU" },
   { en: "Jilin Agricultural University", cn: "吉林农业大学", abbr: "JLAU" },
-  { en: "Henan Agricultural University", cn: "河南农业大学", abbr: "HAU" },
-  { en: "Xinjiang Agricultural University", cn: "新疆农业大学", abbr: "XAU" },
-  { en: "Gansu Agricultural University", cn: "甘肃农业大学", abbr: "GSAU" },
+  { en: "Gansu Forestry Polytechnic", cn: "甘肃林业职业技术学院", abbr: "GSFP" },
+  { en: "Zhangye Academy of Forestry Science", cn: "张掖林业科学研究院", abbr: "ZAFS" },
+  { en: "Chinese Academy of Forestry", cn: "中国林业科学研究院", abbr: "CAF" },
   { en: "University of Idaho", cn: "爱达荷大学", abbr: "UI" },
-  { en: "Czech University of Life Sciences", cn: "捷克生命科学大学", abbr: "CZU" },
 ];
 
 export default function TeamSection() {

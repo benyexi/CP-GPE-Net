@@ -257,7 +257,7 @@ export default function JoinSection() {
                   <div>
                     <p className="text-sm text-forest-500" style={{ fontFamily: "var(--font-body)" }}>{t("WeChat", "微信")}</p>
                     <div className="mt-2 w-36 h-36 bg-white border border-forest-200 rounded-lg overflow-hidden">
-                      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663359140716/DQQrZGCEBPNpsfdCo2rcVJ/wechat-qr_f5347e1f.webp" alt="WeChat QR Code" className="w-full h-full object-contain p-1" />
+                      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663359140716/DQQrZGCEBPNpsfdCo2rcVJ/wechat-qr-cropped_72c8319a.png" alt="WeChat QR Code" className="w-full h-full object-contain p-1" />
                     </div>
                   </div>
                 </div>
