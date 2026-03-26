@@ -1,7 +1,9 @@
 /**
  * Team Section — CP-GPE Net
  * Light cream background (bg-cream) for deep-light alternation.
- * Displays PI and key team members, inspired by TreeNet's About Us page.
+ * Affiliations: ONLY Beijing Forestry University + National Key Lab of Efficient Forest Production.
+ * Partners: Shanxi AU, Inner Mongolia U, Jilin AU, University of Idaho (NOT WSU).
+ * Removed: CAS, SDAU, NXU, QHU.
  */
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -26,8 +28,8 @@ const teamMembers: TeamMember[] = [
     nameCn: "席本野 教授",
     roleEn: "Principal Investigator & Network Director",
     roleCn: "首席研究员 & 网络负责人",
-    affiliationEn: "Beijing Forestry University, College of Forestry",
-    affiliationCn: "北京林业大学 林学院",
+    affiliationEn: "Beijing Forestry University · National Key Laboratory of Efficient Forest Production",
+    affiliationCn: "北京林业大学 · 林木资源高效生产全国重点实验室",
     focusEn: "Plantation water relations, sap flow instrumentation (TDP/HFD/heat ratio), hydraulic redistribution. 129 SCI publications. National Key R&D Program PI.",
     focusCn: "人工林水分关系、树液流仪器（TDP/HFD/热比率）、水力再分配。129篇SCI论文。国家重点研发计划首席科学家。",
     icon: BookOpen,
@@ -39,8 +41,8 @@ const teamMembers: TeamMember[] = [
     roleCn: "博士生 & 博士后",
     affiliationEn: "PWRlab, Beijing Forestry University",
     affiliationCn: "北京林业大学 人工林水分关系实验室",
-    focusEn: "Sap flow data analysis, dendrometer signal processing, stable isotope tracing, and eddy covariance measurements across the network.",
-    focusCn: "液流数据分析、径向生长仪信号处理、稳定同位素示踪和网络涡度相关测量。",
+    focusEn: "Sap flow data analysis, dendrometer signal processing, deep soil moisture monitoring, and groundwater dynamics across the network.",
+    focusCn: "液流数据分析、径向生长仪信号处理、深层土壤水分监测和全网地下水动态研究。",
     icon: GraduationCap,
   },
   {
@@ -59,25 +61,32 @@ const teamMembers: TeamMember[] = [
     nameCn: "合作研究员",
     roleEn: "Collaborating PIs",
     roleCn: "合作PI",
-    affiliationEn: "15+ partner institutions across China & USA",
-    affiliationCn: "中国和美国15+合作机构",
+    affiliationEn: "10+ partner institutions across China & USA",
+    affiliationCn: "中国和美国10+合作机构",
     focusEn: "Regional expertise in plantation ecology, hydrology, and climate science, contributing local knowledge and site management.",
     focusCn: "人工林生态学、水文学和气候科学的区域专业知识，贡献本地知识和站点管理。",
     icon: Users,
   },
 ];
 
-const institutions = [
+const affiliations = [
   { en: "Beijing Forestry University", cn: "北京林业大学", abbr: "BFU" },
-  { en: "Chinese Academy of Sciences", cn: "中国科学院", abbr: "CAS" },
-  { en: "Washington State University", cn: "华盛顿州立大学", abbr: "WSU" },
+  { en: "National Key Lab of Efficient Forest Production", cn: "林木资源高效生产全国重点实验室", abbr: "NKLEFP" },
+];
+
+const partnerInstitutions = [
   { en: "Northwest A&F University", cn: "西北农林科技大学", abbr: "NWAFU" },
-  { en: "Chinese Academy of Forestry", cn: "中国林业科学研究院", abbr: "CAF" },
   { en: "Nanjing Forestry University", cn: "南京林业大学", abbr: "NFU" },
   { en: "Northeast Forestry University", cn: "东北林业大学", abbr: "NEFU" },
-  { en: "Shandong Agricultural University", cn: "山东农业大学", abbr: "SDAU" },
-  { en: "Ningxia University", cn: "宁夏大学", abbr: "NXU" },
-  { en: "Qinghai University", cn: "青海大学", abbr: "QHU" },
+  { en: "Shenyang Agricultural University", cn: "沈阳农业大学", abbr: "SYAU" },
+  { en: "Shanxi Agricultural University", cn: "山西农业大学", abbr: "SXAU" },
+  { en: "Inner Mongolia University", cn: "内蒙古大学", abbr: "IMU" },
+  { en: "Jilin Agricultural University", cn: "吉林农业大学", abbr: "JLAU" },
+  { en: "Henan Agricultural University", cn: "河南农业大学", abbr: "HAU" },
+  { en: "Xinjiang Agricultural University", cn: "新疆农业大学", abbr: "XAU" },
+  { en: "Gansu Agricultural University", cn: "甘肃农业大学", abbr: "GSAU" },
+  { en: "University of Idaho", cn: "爱达荷大学", abbr: "UI" },
+  { en: "Czech University of Life Sciences", cn: "捷克生命科学大学", abbr: "CZU" },
 ];
 
 export default function TeamSection() {
@@ -101,6 +110,35 @@ export default function TeamSection() {
             {t("People Behind the Network", "网络背后的团队")}
           </h2>
           <div className="mt-6 section-divider max-w-xs mx-auto" />
+        </motion.div>
+
+        {/* Affiliations */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mb-12"
+        >
+          <h3 className="text-sm text-forest-500 font-semibold tracking-[0.2em] uppercase text-center mb-6" style={{ fontFamily: "var(--font-body)" }}>
+            {t("Affiliated Institutions", "隶属机构")}
+          </h3>
+          <div className="flex flex-wrap justify-center gap-4">
+            {affiliations.map((inst, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-3 bg-forest-900 text-white rounded-xl px-6 py-3 shadow-md"
+              >
+                <div className="w-10 h-10 rounded-full bg-forest-700 flex items-center justify-center">
+                  <span className="text-xs font-bold text-amber-400" style={{ fontFamily: "var(--font-mono)" }}>
+                    {inst.abbr}
+                  </span>
+                </div>
+                <span className="text-sm font-medium" style={{ fontFamily: "var(--font-body)" }}>
+                  {lang === "en" ? inst.en : inst.cn}
+                </span>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Team Grid */}
@@ -148,8 +186,8 @@ export default function TeamSection() {
           <h3 className="text-sm text-forest-500 font-semibold tracking-[0.2em] uppercase text-center mb-10" style={{ fontFamily: "var(--font-body)" }}>
             {t("Partner Institutions", "合作机构")}
           </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {institutions.map((inst, i) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {partnerInstitutions.map((inst, i) => (
               <div
                 key={i}
                 className="flex flex-col items-center justify-center bg-white border border-forest-100 rounded-xl p-4 hover:border-forest-300 hover:shadow-md transition-all duration-300"

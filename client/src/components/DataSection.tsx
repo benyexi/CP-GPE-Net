@@ -1,10 +1,12 @@
 /**
  * Data Section — CP-GPE Net
  * DARK forest-900 background for visual rhythm (deep-light alternation). Bilingual.
+ * Data types: Sap Flow, Stem Diameter Changes, Microclimate, Soil Moisture, Groundwater Level.
+ * NO carbon flux.
  */
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Lock, Database, Activity, Thermometer, Droplets, BarChart3 } from "lucide-react";
+import { Lock, Database, Activity, Thermometer, Droplets, BarChart3, Waves } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
 export default function DataSection() {
@@ -13,10 +15,10 @@ export default function DataSection() {
 
   const dataTypes = [
     { icon: Activity, label: t("Sap Flow Time Series", "树液流时间序列"), desc: t("Continuous thermal dissipation probe measurements at sub-hourly resolution", "亚小时分辨率的连续热消散探针测量数据") },
-    { icon: BarChart3, label: t("Stem Radius Changes", "茎干半径变化"), desc: t("High-precision dendrometer data capturing growth and water storage dynamics", "高精度径向生长仪数据，捕捉生长和水分储存动态") },
+    { icon: BarChart3, label: t("Stem Diameter Changes", "茎干直径变化"), desc: t("High-precision dendrometer data capturing growth and water storage dynamics", "高精度径向生长仪数据，捕捉生长和水分储存动态") },
     { icon: Thermometer, label: t("Microclimate Data", "微气候数据"), desc: t("Air temperature, humidity, radiation, wind speed, and precipitation", "气温、湿度、辐射、风速和降水") },
-    { icon: Droplets, label: t("Soil Moisture Profiles", "土壤水分剖面"), desc: t("Multi-depth soil water content and soil temperature measurements", "多层土壤含水量和土壤温度测量") },
-    { icon: Database, label: t("Carbon Flux Data", "碳通量数据"), desc: t("Eddy covariance measurements of ecosystem CO₂ and H₂O exchange", "生态系统CO₂和H₂O交换的涡度相关测量") },
+    { icon: Droplets, label: t("Soil Moisture Profiles", "土壤水分剖面"), desc: t("Multi-depth soil water content and soil temperature measurements (0–10 m)", "多层土壤含水量和土壤温度测量（0–10 m）") },
+    { icon: Waves, label: t("Groundwater Level Data", "地下水位数据"), desc: t("Continuous groundwater table monitoring for understanding root-zone water dynamics and deep water uptake", "连续地下水位监测，了解根区水分动态和深层水分吸收") },
   ];
 
   return (

@@ -1,11 +1,12 @@
 /**
  * Methods Section — CP-GPE Net
  * DARK forest-900 background for visual rhythm (deep-light alternation).
- * Detailed methodology and instrumentation. Bilingual.
+ * Instruments: TDP, HFD, Dendrometers, Deep Soil Moisture System (NO eddy covariance, NO stable isotope).
+ * Bilingual.
  */
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Radio, Thermometer, Droplets, Microscope, Cpu, BarChart3, ArrowRight, GitBranch, Leaf, Database } from "lucide-react";
+import { Radio, Thermometer, Droplets, Microscope, Cpu, BarChart3, ArrowRight, GitBranch, Database } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
 export default function MethodsSection() {
@@ -35,28 +36,19 @@ export default function MethodsSection() {
       icon: Microscope,
       titleEn: "Point & Band Dendrometers",
       titleCn: "点式和环式径向生长仪",
-      descEn: "High-precision electronic dendrometers continuously recording stem radius changes at micrometer resolution, capturing growth, water storage, and bark shrinkage dynamics.",
-      descCn: "高精度电子径向生长仪以微米分辨率连续记录茎干半径变化，捕捉生长、水分储存和树皮收缩动态。",
+      descEn: "High-precision electronic dendrometers continuously recording stem diameter changes at micrometer resolution, capturing growth, water storage, and bark shrinkage dynamics.",
+      descCn: "高精度电子径向生长仪以微米分辨率连续记录茎干直径变化，捕捉生长、水分储存和树皮收缩动态。",
       specEn: "Resolution: 1 μm | Sampling: 15-min | Operating range: -30°C to +60°C",
       specCn: "分辨率：1 μm | 采样：15分钟 | 工作范围：-30°C 至 +60°C",
     },
     {
-      icon: Leaf,
-      titleEn: "Eddy Covariance Systems",
-      titleCn: "涡度相关系统",
-      descEn: "Open-path eddy covariance towers measuring ecosystem-level CO₂ and H₂O fluxes, providing stand-scale transpiration and carbon exchange data.",
-      descCn: "开路涡度相关通量塔测量生态系统水平的CO₂和H₂O通量，提供林分尺度蒸腾和碳交换数据。",
-      specEn: "Measurement height: 2× canopy height | Fetch: 200-500m | 10Hz sampling",
-      specCn: "测量高度：2倍冠层高度 | 足迹：200-500m | 10Hz采样",
-    },
-    {
       icon: Droplets,
-      titleEn: "Stable Isotope Analysis",
-      titleCn: "稳定同位素分析",
-      descEn: "δ²H and δ¹⁸O analysis of xylem water, soil water, and precipitation to trace water sources and quantify hydraulic redistribution.",
-      descCn: "木质部水、土壤水和降水的δ²H和δ¹⁸O分析，追踪水分来源并量化水力再分配。",
-      specEn: "Isotopes: δ²H, δ¹⁸O | Precision: ±0.5‰ (δ²H), ±0.1‰ (δ¹⁸O)",
-      specCn: "同位素：δ²H, δ¹⁸O | 精度：±0.5‰ (δ²H), ±0.1‰ (δ¹⁸O)",
+      titleEn: "Deep Soil Moisture Monitoring System",
+      titleCn: "深层土壤水分测定系统",
+      descEn: "Multi-depth soil moisture sensor arrays installed at depths from 0 to 10 meters, continuously monitoring soil water content profiles to understand deep root water uptake and groundwater recharge dynamics.",
+      descCn: "多深度土壤水分传感器阵列安装于0至10米深度，持续监测土壤含水量剖面，了解深层根系吸水和地下水补给动态。",
+      specEn: "Depth range: 0–10 m | Sensors per profile: 10–15 | Accuracy: ±2% VWC",
+      specCn: "深度范围：0–10 m | 每剖面传感器：10–15个 | 精度：±2% 体积含水量",
     },
   ];
 

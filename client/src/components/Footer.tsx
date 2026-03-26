@@ -22,8 +22,7 @@ export default function Footer() {
 
   const affiliations = [
     t("Beijing Forestry University", "北京林业大学"),
-    t("National Key R&D Program", "国家重点研发计划"),
-    t("Three-North Shelterbelt Program", "三北防护林工程"),
+    t("National Key Laboratory of Efficient Forest Production", "林木资源高效生产全国重点实验室"),
   ];
 
   const scrollTo = (href: string) => {
@@ -53,6 +52,7 @@ export default function Footer() {
             </p>
             <p className="mt-5 text-sm text-forest-300 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
               {t("Plantation Water Relations Lab (PWRlab)", "人工林水分关系实验室（PWRlab）")}<br />
+              {t("National Key Laboratory of Efficient Forest Production", "林木资源高效生产全国重点实验室")}<br />
               {t("Beijing Forestry University", "北京林业大学")}
             </p>
           </div>

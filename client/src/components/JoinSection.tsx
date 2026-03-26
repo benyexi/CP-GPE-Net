@@ -246,7 +246,7 @@ export default function JoinSection() {
                   </div>
                   <div>
                     <p className="text-sm text-forest-500" style={{ fontFamily: "var(--font-body)" }}>{t("Email", "邮箱")}</p>
-                    <p className="text-forest-800" style={{ fontFamily: "var(--font-body)" }}>xibenye@bjfu.edu.cn</p>
+                    <p className="text-forest-800" style={{ fontFamily: "var(--font-body)" }}>benyexi@bjfu.edu.cn</p>
                   </div>
                 </div>
 
@@ -256,8 +256,8 @@ export default function JoinSection() {
                   </div>
                   <div>
                     <p className="text-sm text-forest-500" style={{ fontFamily: "var(--font-body)" }}>{t("WeChat", "微信")}</p>
-                    <div className="mt-2 w-32 h-32 bg-forest-50 border border-forest-200 rounded-lg flex items-center justify-center">
-                      <span className="text-xs text-forest-400" style={{ fontFamily: "var(--font-body)" }}>QR Code</span>
+                    <div className="mt-2 w-36 h-36 bg-white border border-forest-200 rounded-lg overflow-hidden">
+                      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663359140716/DQQrZGCEBPNpsfdCo2rcVJ/wechat-qr_f5347e1f.webp" alt="WeChat QR Code" className="w-full h-full object-contain p-1" />
                     </div>
                   </div>
                 </div>
@@ -266,7 +266,7 @@ export default function JoinSection() {
                   <p className="text-sm text-forest-600 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
                     <strong className="text-forest-800">{t("Prof. Xi Benye", "席本野 教授")}</strong><br />
                     {t("Plantation Water Relations Lab (PWRlab)", "人工林水分关系实验室（PWRlab）")}<br />
-                    {t("College of Forestry", "林学院")}<br />
+                    {t("National Key Laboratory of Efficient Forest Production", "林木资源高效生产全国重点实验室")}<br />
                     {t("Beijing Forestry University", "北京林业大学")}<br />
                     {t("Beijing 100083, China", "北京 100083，中国")}
                   </p>

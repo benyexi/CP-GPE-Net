@@ -58,10 +58,9 @@ export default function AboutSection() {
 
   const partners = [
     t("Beijing Forestry University", "北京林业大学"),
-    t("Chinese Academy of Sciences", "中国科学院"),
+    t("National Key Laboratory of Efficient Forest Production", "林木资源高效生产全国重点实验室"),
     t("National Key R&D Program", "国家重点研发计划"),
     t("Three-North Shelterbelt Program", "三北防护林工程"),
-    t("Washington State University", "华盛顿州立大学"),
   ];
 
   return (
@@ -142,8 +141,8 @@ export default function AboutSection() {
                   </h3>
                   <p className="text-sm text-forest-600 mt-1" style={{ fontFamily: "var(--font-body)" }}>
                     {t(
-                      "Principal Investigator | Beijing Forestry University, College of Forestry",
-                      "首席研究员 | 北京林业大学林学院"
+                      "Principal Investigator | Beijing Forestry University | National Key Laboratory of Efficient Forest Production",
+                      "首席研究员 | 北京林业大学 | 林木资源高效生产全国重点实验室"
                     )}
                   </p>
                   <p className="text-sm text-forest-500 mt-2 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>

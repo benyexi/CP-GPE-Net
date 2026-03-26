@@ -60,24 +60,24 @@ function PulsingMarker({ site, lang, onClick }: { site: MonitoringSite; lang: st
     <>
       <CircleMarker
         center={[site.latitude, site.longitude]}
-        radius={14}
+        radius={18}
         pathOptions={{
           color: "transparent",
-          fillColor: "#e8920d",
-          fillOpacity: 0.2,
+          fillColor: "#d4380d",
+          fillOpacity: 0.15,
           weight: 0,
           className: "pulse-ring",
         }}
       />
       <CircleMarker
         center={[site.latitude, site.longitude]}
-        radius={7}
+        radius={8}
         pathOptions={{
-          color: "#f5a623",
-          fillColor: "#e8920d",
-          fillOpacity: 0.9,
-          weight: 2,
-          opacity: 0.9,
+          color: "#ffffff",
+          fillColor: "#d4380d",
+          fillOpacity: 0.95,
+          weight: 2.5,
+          opacity: 1,
         }}
         eventHandlers={{ click: () => onClick(site) }}
       >
@@ -178,7 +178,7 @@ export default function NetworkSection() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="relative rounded-2xl overflow-hidden border border-forest-600/30 shadow-2xl"
         >
-          <div className="h-[450px] sm:h-[500px] lg:h-[600px]">
+          <div className="h-[550px] sm:h-[650px] lg:h-[80vh] min-h-[600px]">
             <MapContainer
               center={[35, 105]}
               zoom={4}
@@ -186,10 +186,10 @@ export default function NetworkSection() {
               zoomControl={true}
               scrollWheelZoom={true}
             >
-              {/* CartoDB Voyager — professional, balanced, detail-rich */}
+              {/* Stamen Terrain for clear boundaries + natural look */}
               <TileLayer
-                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>'
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+                attribution='&copy; Esri, HERE, Garmin, OpenStreetMap contributors'
               />
               <MapController activeRegion={activeRegion} sites={filteredSites} />
 
