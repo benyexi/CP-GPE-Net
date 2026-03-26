@@ -1,6 +1,7 @@
 /**
  * Hero Section — Fresh Forest Theme
- * Full-viewport hero with bright plantation background, floating leaf particles, and stats bar.
+ * Full-viewport hero with bright plantation background, floating leaf particles,
+ * glowing CTA button, and stats bar.
  */
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -39,7 +40,7 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   }, [target]);
 
   return (
-    <span ref={ref} className="font-[family-name:var(--font-mono)] text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
+    <span ref={ref} style={{ fontFamily: "var(--font-mono)" }} className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
       {count}{suffix}
     </span>
   );
@@ -130,7 +131,7 @@ export default function HeroSection() {
           transform: `translateY(${scrollY * 0.3}px)`,
         }}
       />
-      {/* Gradient overlay — lighter, nature-inspired */}
+      {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-forest-900/50 via-forest-800/40 to-forest-900/70" />
       <div className="absolute inset-0 bg-gradient-to-r from-forest-900/30 via-transparent to-forest-900/30" />
 
@@ -152,7 +153,7 @@ export default function HeroSection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 border border-white/20 backdrop-blur-sm mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-white/90 text-sm font-[family-name:var(--font-body)] font-medium tracking-wide">
+            <span className="text-white/90 text-sm font-medium tracking-wide" style={{ fontFamily: "var(--font-body)" }}>
               {t("Beijing Forestry University", "北京林业大学")}
             </span>
           </motion.div>
@@ -168,7 +169,8 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-base sm:text-lg md:text-xl text-white/80 font-[family-name:var(--font-body)] font-light tracking-widest uppercase mb-6 max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl text-white/80 font-light tracking-widest uppercase mb-6 max-w-3xl mx-auto"
+            style={{ fontFamily: "var(--font-body)" }}
           >
             {t(
               "China Plantation Growth, Physiology & Ecology Network",
@@ -181,7 +183,8 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
-            className="text-lg sm:text-xl md:text-2xl text-white/90 font-[family-name:var(--font-display)] italic max-w-2xl mx-auto mb-10"
+            className="text-lg sm:text-xl md:text-2xl text-white/90 italic max-w-2xl mx-auto mb-10"
+            style={{ fontFamily: "var(--font-display)" }}
           >
             {t(
               "Monitoring Plantation Water, Growth, and Ecology Across China and Beyond",
@@ -189,7 +192,7 @@ export default function HeroSection() {
             )}
           </motion.p>
 
-          {/* CTA */}
+          {/* Glowing CTA */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -197,8 +200,11 @@ export default function HeroSection() {
           >
             <button
               onClick={() => document.getElementById("network")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-forest-800 font-[family-name:var(--font-body)] font-semibold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.25)] hover:bg-forest-50"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-forest-800 font-semibold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:bg-forest-50 shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(255,255,255,0.35)]"
+              style={{ fontFamily: "var(--font-body)" }}
             >
+              {/* Glow border effect */}
+              <span className="absolute inset-0 rounded-xl border-2 border-white/30 animate-pulse" />
               <span className="relative z-10">{t("Explore the Network", "探索监测网络")}</span>
               <ChevronDown size={20} className="relative z-10 group-hover:translate-y-1 transition-transform" />
             </button>
@@ -218,7 +224,7 @@ export default function HeroSection() {
             {stats.map((stat, i) => (
               <div key={i} className="text-center">
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                <p className="mt-2 text-sm text-white/70 font-[family-name:var(--font-body)] font-medium tracking-wide uppercase">
+                <p className="mt-2 text-sm text-white/70 font-medium tracking-wide uppercase" style={{ fontFamily: "var(--font-body)" }}>
                   {lang === "en" ? stat.labelEn : stat.labelCn}
                 </p>
               </div>

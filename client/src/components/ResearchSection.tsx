@@ -1,6 +1,6 @@
 /**
- * Research Section — Fresh Forest Theme
- * Focus areas and key publications. Bilingual.
+ * Research Section — CP-GPE Net
+ * Dark forest background for visual rhythm. Focus areas + publications. Bilingual.
  */
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -22,18 +22,18 @@ export default function ResearchSection() {
   ];
 
   const publications = [
-    { journal: "Agricultural and Forest Meteorology", abbr: "AFM", color: "#3d9a5a", desc: t("Sap flow scaling methods for poplar plantations in semi-arid regions", "半干旱地区杨树人工林树液流尺度转换方法") },
-    { journal: "New Phytologist", abbr: "New Phyt", color: "#4a8ab5", desc: t("Hydraulic redistribution in plantation root systems under drought stress", "干旱胁迫下人工林根系水力再分配") },
-    { journal: "Plant Physiology", abbr: "Plant Physiol", color: "#b5704a", desc: t("Nocturnal sap flow and stem water refilling in Populus species", "杨属树种夜间树液流和茎干补水") },
-    { journal: "Forest Ecology and Management", abbr: "FEM", color: "#7a5ab5", desc: t("Water-carbon coupling in Three-North Shelterbelt plantations", "三北防护林人工林水碳耦合") },
+    { journal: "Agricultural and Forest Meteorology", abbr: "AFM", color: "#6abf7b", desc: t("Sap flow scaling methods for poplar plantations in semi-arid regions", "半干旱地区杨树人工林树液流尺度转换方法") },
+    { journal: "New Phytologist", abbr: "New Phyt", color: "#7ab8d4", desc: t("Hydraulic redistribution in plantation root systems under drought stress", "干旱胁迫下人工林根系水力再分配") },
+    { journal: "Plant Physiology", abbr: "Plant Physiol", color: "#d4a87a", desc: t("Nocturnal sap flow and stem water refilling in Populus species", "杨属树种夜间树液流和茎干补水") },
+    { journal: "Forest Ecology and Management", abbr: "FEM", color: "#b89ad4", desc: t("Water-carbon coupling in Three-North Shelterbelt plantations", "三北防护林人工林水碳耦合") },
   ];
 
   return (
-    <section id="research" className="relative py-24 lg:py-32 overflow-hidden bg-warm-50">
-      {/* Background image with light overlay */}
+    <section id="research" className="relative py-24 lg:py-32 overflow-hidden bg-forest-800">
+      {/* Background image with dark overlay */}
       <div className="absolute inset-0">
-        <img src={RESEARCH_BG} alt="" className="w-full h-full object-cover opacity-[0.06]" loading="lazy" />
-        <div className="absolute inset-0 bg-gradient-to-b from-warm-50 via-warm-50/95 to-warm-50" />
+        <img src={RESEARCH_BG} alt="" className="w-full h-full object-cover opacity-[0.08]" loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-b from-forest-800 via-forest-800/95 to-forest-800" />
       </div>
 
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,13 +44,13 @@ export default function ResearchSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 lg:mb-20"
         >
-          <span className="text-forest-600 text-sm font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-body)" }}>
+          <span className="text-forest-400 text-sm font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-body)" }}>
             {t("Research Focus", "研究方向")}
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-forest-900" style={{ fontFamily: "var(--font-display)" }}>
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>
             {t("Advancing Plantation Science", "推进人工林科学")}
           </h2>
-          <div className="mt-6 section-divider max-w-xs mx-auto" />
+          <div className="mt-6 h-px max-w-xs mx-auto bg-gradient-to-r from-transparent via-forest-400/50 to-transparent" />
         </motion.div>
 
         {/* Focus Areas */}
@@ -61,19 +61,19 @@ export default function ResearchSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-              className={`group relative bg-white border border-forest-100 rounded-xl p-6 hover:border-forest-300 hover:shadow-lg transition-all duration-300 ${
+              className={`group relative bg-forest-700/40 border border-forest-600/25 rounded-xl p-6 hover:border-forest-400/40 hover:bg-forest-700/60 transition-all duration-300 backdrop-blur-sm ${
                 i === 4 ? "md:col-span-2 lg:col-span-1" : ""
               }`}
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-forest-50 flex items-center justify-center flex-shrink-0 group-hover:bg-forest-100 transition-colors">
-                  <area.icon size={22} className="text-forest-600" />
+                <div className="w-12 h-12 rounded-lg bg-forest-600/30 flex items-center justify-center flex-shrink-0 group-hover:bg-forest-500/40 transition-colors">
+                  <area.icon size={22} className="text-forest-300" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-forest-900 mb-2" style={{ fontFamily: "var(--font-display)" }}>
+                  <h3 className="text-lg font-bold text-white mb-2" style={{ fontFamily: "var(--font-display)" }}>
                     {area.title}
                   </h3>
-                  <p className="text-sm text-forest-600 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
+                  <p className="text-sm text-forest-300 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
                     {area.desc}
                   </p>
                 </div>
@@ -88,7 +88,7 @@ export default function ResearchSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <h3 className="text-2xl lg:text-3xl font-bold text-forest-900 text-center mb-12" style={{ fontFamily: "var(--font-display)" }}>
+          <h3 className="text-2xl lg:text-3xl font-bold text-white text-center mb-12" style={{ fontFamily: "var(--font-display)" }}>
             {t("Key Publications", "代表性论文")}
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -98,19 +98,19 @@ export default function ResearchSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.6 + i * 0.1 }}
-                className="group bg-white border border-forest-100 rounded-xl p-6 hover:border-forest-300 hover:shadow-lg transition-all duration-300"
+                className="group bg-forest-700/40 border border-forest-600/25 rounded-xl p-6 hover:border-forest-400/40 hover:bg-forest-700/60 transition-all duration-300 backdrop-blur-sm"
               >
                 <div
                   className="w-full h-1.5 rounded-full mb-4"
                   style={{ background: `linear-gradient(90deg, ${pub.color}, ${pub.color}40)` }}
                 />
-                <h4 className="text-sm font-bold text-forest-800 uppercase tracking-wider mb-2" style={{ fontFamily: "var(--font-body)" }}>
+                <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-2" style={{ fontFamily: "var(--font-body)" }}>
                   {pub.abbr}
                 </h4>
-                <p className="text-xs text-forest-500 mb-3" style={{ fontFamily: "var(--font-body)" }}>
+                <p className="text-xs text-forest-400 mb-3" style={{ fontFamily: "var(--font-body)" }}>
                   {pub.journal}
                 </p>
-                <p className="text-sm text-forest-700 leading-relaxed italic" style={{ fontFamily: "var(--font-body)" }}>
+                <p className="text-sm text-forest-200 leading-relaxed italic" style={{ fontFamily: "var(--font-body)" }}>
                   "{pub.desc}"
                 </p>
               </motion.div>

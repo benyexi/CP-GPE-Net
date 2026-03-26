@@ -1,13 +1,11 @@
 /**
- * Data Section — Fresh Forest Theme
- * Data access portal placeholder. Bilingual.
+ * Data Section — CP-GPE Net
+ * Data portal placeholder. Consistent cream/forest theme. Bilingual.
  */
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Lock, Database, Activity, Thermometer, Droplets, BarChart3 } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
-
-const DATA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663359140716/DQQrZGCEBPNpsfdCo2rcVJ/data-fresh_dde30f84.jpg";
 
 export default function DataSection() {
   const { t } = useLang();
@@ -22,11 +20,13 @@ export default function DataSection() {
   ];
 
   return (
-    <section id="data" className="relative py-24 lg:py-32 overflow-hidden bg-cream">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img src={DATA_IMG} alt="" className="w-full h-full object-cover opacity-[0.04]" loading="lazy" />
-        <div className="absolute inset-0 bg-gradient-to-b from-cream via-cream/98 to-cream" />
+    <section id="data" className="relative py-24 lg:py-32 overflow-hidden bg-warm-50">
+      {/* Subtle pattern */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 50% 50%, #2d5a3f 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+        }} />
       </div>
 
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,10 +37,10 @@ export default function DataSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 lg:mb-20"
         >
-          <span className="text-forest-600 text-sm font-[family-name:var(--font-body)] font-semibold tracking-[0.2em] uppercase">
+          <span className="text-forest-600 text-sm font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-body)" }}>
             {t("Data Portal", "数据门户")}
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-forest-900">
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-forest-900" style={{ fontFamily: "var(--font-display)" }}>
             {t("Open Data for Plantation Science", "人工林科学开放数据")}
           </h2>
           <div className="mt-6 section-divider max-w-xs mx-auto" />
@@ -53,7 +53,7 @@ export default function DataSection() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className="text-xl font-bold text-forest-900 font-[family-name:var(--font-display)] mb-8">
+            <h3 className="text-xl font-bold text-forest-900 mb-8" style={{ fontFamily: "var(--font-display)" }}>
               {t("Available Data Types", "可用数据类型")}
             </h3>
             <div className="space-y-4">
@@ -69,10 +69,10 @@ export default function DataSection() {
                     <dt.icon size={18} className="text-forest-600" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-forest-800 font-[family-name:var(--font-body)]">
+                    <h4 className="text-sm font-semibold text-forest-800" style={{ fontFamily: "var(--font-body)" }}>
                       {dt.label}
                     </h4>
-                    <p className="text-xs text-forest-500 font-[family-name:var(--font-body)] mt-1 leading-relaxed">
+                    <p className="text-xs text-forest-500 mt-1 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
                       {dt.desc}
                     </p>
                   </div>
@@ -97,13 +97,13 @@ export default function DataSection() {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-forest-900 font-[family-name:var(--font-display)] mb-3">
+                <h3 className="text-2xl font-bold text-forest-900 mb-3" style={{ fontFamily: "var(--font-display)" }}>
                   {t("Data Portal", "数据门户")}
                 </h3>
-                <p className="text-forest-600 font-[family-name:var(--font-body)] font-semibold text-sm tracking-wider uppercase mb-4">
+                <p className="text-forest-600 font-semibold text-sm tracking-wider uppercase mb-4" style={{ fontFamily: "var(--font-body)" }}>
                   {t("Coming Soon", "即将上线")}
                 </p>
-                <p className="text-sm text-forest-500 font-[family-name:var(--font-body)] leading-relaxed mb-8">
+                <p className="text-sm text-forest-500 leading-relaxed mb-8" style={{ fontFamily: "var(--font-body)" }}>
                   {t(
                     "Our data sharing platform is currently under development. Access to CP-GPE Net datasets will be available through collaboration agreements.",
                     "我们的数据共享平台正在开发中。CP-GPE Net数据集将通过合作协议提供访问。"
@@ -111,9 +111,9 @@ export default function DataSection() {
                 </p>
 
                 <div className="w-full bg-forest-50 rounded-full h-2 mb-3">
-                  <div className="bg-gradient-to-r from-forest-500 to-forest-400 h-2 rounded-full" style={{ width: "65%" }} />
+                  <div className="bg-gradient-to-r from-forest-600 to-forest-400 h-2 rounded-full" style={{ width: "65%" }} />
                 </div>
-                <p className="text-xs text-forest-400 font-[family-name:var(--font-mono)]">
+                <p className="text-xs text-forest-400" style={{ fontFamily: "var(--font-mono)" }}>
                   {t("Development Progress: 65%", "开发进度：65%")}
                 </p>
               </div>
@@ -122,7 +122,7 @@ export default function DataSection() {
               <div className="absolute -bottom-3 -left-3 w-16 h-16 border-b-2 border-l-2 border-forest-200 rounded-bl-xl" />
             </div>
 
-            <p className="mt-8 text-sm text-forest-500 font-[family-name:var(--font-body)] text-center max-w-sm italic">
+            <p className="mt-8 text-sm text-forest-500 text-center max-w-sm italic" style={{ fontFamily: "var(--font-body)" }}>
               {t(
                 "Data sharing is available via collaboration agreement. Please contact us through the Join section below.",
                 "数据共享可通过合作协议获取。请通过下方的合作栏目联系我们。"

@@ -1,6 +1,6 @@
 /**
- * About Section — Fresh Forest Theme
- * Network introduction + PI profile + network goals, bilingual.
+ * About Section — CP-GPE Net
+ * Dark forest background for visual contrast rhythm. Bilingual.
  */
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -57,11 +57,11 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="relative py-24 lg:py-32 overflow-hidden bg-warm-50">
-      {/* Subtle dot pattern */}
-      <div className="absolute inset-0 opacity-[0.03]">
+    <section id="about" className="relative py-24 lg:py-32 overflow-hidden bg-forest-900">
+      {/* Subtle texture */}
+      <div className="absolute inset-0 opacity-[0.06]">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, #2d5a3f 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(circle at 25% 25%, #4a8a5a 1px, transparent 1px)`,
           backgroundSize: "48px 48px",
         }} />
       </div>
@@ -74,13 +74,13 @@ export default function AboutSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 lg:mb-20"
         >
-          <span className="text-forest-600 text-sm font-[family-name:var(--font-body)] font-semibold tracking-[0.2em] uppercase">
+          <span className="text-forest-400 text-sm font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-body)" }}>
             {t("About the Network", "关于监测网络")}
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-forest-900">
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>
             {t("What is CP-GPE Net?", "什么是CP-GPE Net？")}
           </h2>
-          <div className="mt-6 section-divider max-w-xs mx-auto" />
+          <div className="mt-6 h-px max-w-xs mx-auto bg-gradient-to-r from-transparent via-forest-400/50 to-transparent" />
         </motion.div>
 
         {/* Intro + Image */}
@@ -90,13 +90,13 @@ export default function AboutSection() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <p className="text-lg text-forest-700 font-[family-name:var(--font-body)] leading-relaxed mb-6">
+            <p className="text-lg text-forest-200 leading-relaxed mb-6" style={{ fontFamily: "var(--font-body)" }}>
               {t(
                 "CP-GPE Net is a national-level monitoring network dedicated to understanding the physiology and ecology of China's plantation ecosystems. Focusing on water relations, sap flow dynamics, hydraulic redistribution, and growth patterns, the network spans 22 monitoring sites across North China, the Yellow River Basin, and beyond.",
                 "CP-GPE Net是一个国家级监测网络，致力于理解中国人工林生态系统的生理学和生态学。网络聚焦水分关系、树液流动态、水力再分配和生长模式，覆盖华北、黄河流域等地区的22个监测站点。"
               )}
             </p>
-            <p className="text-lg text-forest-700 font-[family-name:var(--font-body)] leading-relaxed mb-8">
+            <p className="text-lg text-forest-200 leading-relaxed mb-8" style={{ fontFamily: "var(--font-body)" }}>
               {t(
                 "Established by the Plantation Water Relations Lab (PWRlab) at Beijing Forestry University, CP-GPE Net integrates advanced sap flow instrumentation with long-term ecological monitoring to address critical questions about plantation water-carbon balance under climate change.",
                 "由北京林业大学人工林水分关系实验室（PWRlab）建立，CP-GPE Net将先进的树液流仪器与长期生态监测相结合，解决气候变化下人工林水碳平衡的关键问题。"
@@ -104,22 +104,22 @@ export default function AboutSection() {
             </p>
 
             {/* PI Card */}
-            <div className="bg-white border border-forest-200 rounded-xl p-6 shadow-sm">
+            <div className="bg-forest-800/60 border border-forest-600/30 rounded-xl p-6 backdrop-blur-sm">
               <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-forest-500 to-forest-700 flex items-center justify-center flex-shrink-0 shadow-md">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-forest-400 to-forest-600 flex items-center justify-center flex-shrink-0 shadow-lg">
                   <BookOpen size={24} className="text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-forest-900 font-[family-name:var(--font-display)]">
-                    Prof. Xi Benye <span className="text-forest-600">席本野</span>
+                  <h3 className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>
+                    Prof. Xi Benye <span className="text-forest-300">席本野</span>
                   </h3>
-                  <p className="text-sm text-forest-600 font-[family-name:var(--font-body)] mt-1">
+                  <p className="text-sm text-forest-300 mt-1" style={{ fontFamily: "var(--font-body)" }}>
                     {t(
                       "Principal Investigator | Beijing Forestry University, College of Forestry",
                       "首席研究员 | 北京林业大学林学院"
                     )}
                   </p>
-                  <p className="text-sm text-forest-500 font-[family-name:var(--font-body)] mt-3 leading-relaxed">
+                  <p className="text-sm text-forest-400 mt-3 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
                     {t(
                       "Expert in plantation water relations, sap flow instrumentation (TDP/HFD/heat ratio probes), and hydraulic redistribution. 129 SCI publications. National Key R&D Program PI.",
                       "人工林水分关系、树液流仪器（TDP/HFD/热比率探针）和水力再分配专家。发表129篇SCI论文。国家重点研发计划首席科学家。"
@@ -137,22 +137,22 @@ export default function AboutSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={ABOUT_IMG}
                 alt="Sap flow measurement instruments on a poplar tree"
                 className="w-full h-[400px] lg:h-[500px] object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-900/40 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-900/50 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <p className="text-sm text-white font-[family-name:var(--font-mono)]">
+                <p className="text-sm text-white/90" style={{ fontFamily: "var(--font-mono)" }}>
                   {t("TDP sap flow probe installation", "TDP树液流探针安装")}
                 </p>
               </div>
             </div>
-            <div className="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-forest-300 rounded-tr-2xl" />
-            <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-forest-300 rounded-bl-2xl" />
+            <div className="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-forest-500/40 rounded-tr-2xl" />
+            <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-forest-500/40 rounded-bl-2xl" />
           </motion.div>
         </div>
 
@@ -162,7 +162,7 @@ export default function AboutSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <h3 className="text-2xl lg:text-3xl font-bold text-forest-900 text-center mb-12">
+          <h3 className="text-2xl lg:text-3xl font-bold text-white text-center mb-12" style={{ fontFamily: "var(--font-display)" }}>
             {t("Network Goals", "网络目标")}
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -172,15 +172,15 @@ export default function AboutSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.7 + i * 0.1 }}
-                className="group bg-white border border-forest-100 rounded-xl p-6 hover:border-forest-300 hover:shadow-lg transition-all duration-300"
+                className="group bg-forest-800/50 border border-forest-600/25 rounded-xl p-6 hover:border-forest-400/40 hover:bg-forest-800/70 transition-all duration-300 backdrop-blur-sm"
               >
-                <div className="w-12 h-12 rounded-lg bg-forest-50 flex items-center justify-center mb-4 group-hover:bg-forest-100 transition-colors">
-                  <goal.icon size={24} className="text-forest-600" />
+                <div className="w-12 h-12 rounded-lg bg-forest-700/50 flex items-center justify-center mb-4 group-hover:bg-forest-600/50 transition-colors">
+                  <goal.icon size={24} className="text-forest-300" />
                 </div>
-                <h4 className="text-lg font-bold text-forest-900 font-[family-name:var(--font-display)] mb-2">
+                <h4 className="text-lg font-bold text-white mb-2" style={{ fontFamily: "var(--font-display)" }}>
                   {goal.title}
                 </h4>
-                <p className="text-sm text-forest-600 font-[family-name:var(--font-body)] leading-relaxed">
+                <p className="text-sm text-forest-300 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
                   {goal.desc}
                 </p>
               </motion.div>
@@ -195,14 +195,15 @@ export default function AboutSection() {
           transition={{ duration: 0.8, delay: 1 }}
           className="mt-20 text-center"
         >
-          <h3 className="text-sm text-forest-500 font-[family-name:var(--font-body)] font-semibold tracking-[0.2em] uppercase mb-8">
+          <h3 className="text-sm text-forest-400 font-semibold tracking-[0.2em] uppercase mb-8" style={{ fontFamily: "var(--font-body)" }}>
             {t("Partnering Institutions", "合作机构")}
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
             {partners.map((p, i) => (
               <span
                 key={i}
-                className="px-5 py-2.5 bg-white border border-forest-200 rounded-full text-sm text-forest-700 font-[family-name:var(--font-body)] shadow-sm"
+                className="px-5 py-2.5 bg-forest-800/50 border border-forest-600/30 rounded-full text-sm text-forest-200 shadow-sm backdrop-blur-sm"
+                style={{ fontFamily: "var(--font-body)" }}
               >
                 {p}
               </span>

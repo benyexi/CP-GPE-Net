@@ -313,7 +313,7 @@ export const stats = [
   { labelEn: "Monitoring Sites", labelCn: "监测站点", value: 22 },
   { labelEn: "Species Monitored", labelCn: "监测树种", value: 12, suffix: "+" },
   { labelEn: "Years of Data", labelCn: "数据年限", value: 15, suffix: "+" },
-  { labelEn: "International Partners", labelCn: "国际合作", value: 1, suffix: "" },
+  { labelEn: "International Partners", labelCn: "国际合作", value: 5, suffix: "+" },
 ];
 
 // Simplified Yellow River Basin boundary polygon (lat/lng pairs)
