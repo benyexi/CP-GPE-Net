@@ -1,5 +1,6 @@
 /**
  * Team Section — CP-GPE Net
+ * Light cream background (bg-cream) for deep-light alternation.
  * Displays PI and key team members, inspired by TreeNet's About Us page.
  */
 import { motion } from "framer-motion";
@@ -66,6 +67,19 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
+const institutions = [
+  { en: "Beijing Forestry University", cn: "北京林业大学", abbr: "BFU" },
+  { en: "Chinese Academy of Sciences", cn: "中国科学院", abbr: "CAS" },
+  { en: "Washington State University", cn: "华盛顿州立大学", abbr: "WSU" },
+  { en: "Northwest A&F University", cn: "西北农林科技大学", abbr: "NWAFU" },
+  { en: "Chinese Academy of Forestry", cn: "中国林业科学研究院", abbr: "CAF" },
+  { en: "Nanjing Forestry University", cn: "南京林业大学", abbr: "NFU" },
+  { en: "Northeast Forestry University", cn: "东北林业大学", abbr: "NEFU" },
+  { en: "Shandong Agricultural University", cn: "山东农业大学", abbr: "SDAU" },
+  { en: "Ningxia University", cn: "宁夏大学", abbr: "NXU" },
+  { en: "Qinghai University", cn: "青海大学", abbr: "QHU" },
+];
+
 export default function TeamSection() {
   const { lang, t } = useLang();
   const [ref, inView] = useInView({ threshold: 0.05, triggerOnce: true });
@@ -124,7 +138,7 @@ export default function TeamSection() {
           ))}
         </div>
 
-        {/* Partner Logos */}
+        {/* Partner Institutions */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -135,18 +149,7 @@ export default function TeamSection() {
             {t("Partner Institutions", "合作机构")}
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {[
-              { en: "Beijing Forestry University", cn: "北京林业大学", abbr: "BFU" },
-              { en: "Chinese Academy of Sciences", cn: "中国科学院", abbr: "CAS" },
-              { en: "Washington State University", cn: "华盛顿州立大学", abbr: "WSU" },
-              { en: "Northwest A&F University", cn: "西北农林科技大学", abbr: "NWAFU" },
-              { en: "Chinese Academy of Forestry", cn: "中国林业科学研究院", abbr: "CAF" },
-              { en: "Nanjing Forestry University", cn: "南京林业大学", abbr: "NFU" },
-              { en: "Northeast Forestry University", cn: "东北林业大学", abbr: "NEFU" },
-              { en: "Shandong Agricultural University", cn: "山东农业大学", abbr: "SDAU" },
-              { en: "Ningxia University", cn: "宁夏大学", abbr: "NXU" },
-              { en: "Qinghai University", cn: "青海大学", abbr: "QHU" },
-            ].map((inst, i) => (
+            {institutions.map((inst, i) => (
               <div
                 key={i}
                 className="flex flex-col items-center justify-center bg-white border border-forest-100 rounded-xl p-4 hover:border-forest-300 hover:shadow-md transition-all duration-300"

@@ -1,7 +1,7 @@
 /**
  * Methods Section — CP-GPE Net
- * Detailed methodology and instrumentation, inspired by TreeNet's Methods page.
- * Includes data processing pipeline and open-source tools.
+ * DARK forest-900 background for visual rhythm (deep-light alternation).
+ * Detailed methodology and instrumentation. Bilingual.
  */
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -68,15 +68,7 @@ export default function MethodsSection() {
   ];
 
   return (
-    <section id="methods" className="relative py-24 lg:py-32 overflow-hidden bg-warm-50">
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `linear-gradient(#2d5a3f 1px, transparent 1px), linear-gradient(90deg, #2d5a3f 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }} />
-      </div>
-
+    <section id="methods" className="relative py-24 lg:py-32 overflow-hidden bg-forest-900">
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -85,19 +77,19 @@ export default function MethodsSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 lg:mb-20"
         >
-          <span className="text-forest-600 text-sm font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-body)" }}>
+          <span className="text-forest-300 text-sm font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-body)" }}>
             {t("Methodology", "方法学")}
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-forest-900" style={{ fontFamily: "var(--font-display)" }}>
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>
             {t("Instruments & Data Processing", "仪器与数据处理")}
           </h2>
-          <p className="mt-6 text-lg text-forest-600 max-w-2xl mx-auto" style={{ fontFamily: "var(--font-body)" }}>
+          <p className="mt-6 text-lg text-forest-300 max-w-2xl mx-auto" style={{ fontFamily: "var(--font-body)" }}>
             {t(
               "Our network employs state-of-the-art instrumentation and rigorous data processing pipelines to ensure high-quality, comparable datasets across all sites.",
               "我们的网络采用最先进的仪器和严格的数据处理流程，确保所有站点的高质量、可比较数据集。"
             )}
           </p>
-          <div className="mt-6 section-divider max-w-xs mx-auto" />
+          <div className="mt-6 w-20 h-0.5 bg-amber-500/60 mx-auto" />
         </motion.div>
 
         {/* Instruments */}
@@ -108,21 +100,21 @@ export default function MethodsSection() {
               initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-              className="group bg-white border border-forest-100 rounded-xl p-6 lg:p-8 hover:border-forest-300 hover:shadow-lg transition-all duration-300"
+              className="group bg-forest-800/60 border border-forest-600/25 rounded-xl p-6 lg:p-8 hover:border-forest-400/40 hover:bg-forest-800/80 transition-all duration-300"
             >
               <div className="flex flex-col sm:flex-row items-start gap-5">
-                <div className="w-14 h-14 rounded-xl bg-forest-50 flex items-center justify-center flex-shrink-0 group-hover:bg-forest-100 transition-colors">
-                  <inst.icon size={28} className="text-forest-600" />
+                <div className="w-14 h-14 rounded-xl bg-forest-700/50 flex items-center justify-center flex-shrink-0 group-hover:bg-forest-600/50 transition-colors">
+                  <inst.icon size={28} className="text-forest-300" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-forest-900 mb-2" style={{ fontFamily: "var(--font-display)" }}>
+                  <h3 className="text-xl font-bold text-white mb-2" style={{ fontFamily: "var(--font-display)" }}>
                     {lang === "en" ? inst.titleEn : inst.titleCn}
                   </h3>
-                  <p className="text-sm text-forest-600 leading-relaxed mb-3" style={{ fontFamily: "var(--font-body)" }}>
+                  <p className="text-sm text-forest-300 leading-relaxed mb-3" style={{ fontFamily: "var(--font-body)" }}>
                     {lang === "en" ? inst.descEn : inst.descCn}
                   </p>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-forest-50 rounded-lg">
-                    <span className="text-xs text-forest-500" style={{ fontFamily: "var(--font-mono)" }}>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-forest-700/40 rounded-lg border border-forest-600/20">
+                    <span className="text-xs text-amber-400/90" style={{ fontFamily: "var(--font-mono)" }}>
                       {lang === "en" ? inst.specEn : inst.specCn}
                     </span>
                   </div>
@@ -138,28 +130,28 @@ export default function MethodsSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <h3 className="text-2xl lg:text-3xl font-bold text-forest-900 text-center mb-12" style={{ fontFamily: "var(--font-display)" }}>
+          <h3 className="text-2xl lg:text-3xl font-bold text-white text-center mb-12" style={{ fontFamily: "var(--font-display)" }}>
             {t("Data Processing Pipeline", "数据处理流程")}
           </h3>
           <div className="flex flex-col sm:flex-row items-stretch gap-4">
             {pipeline.map((step, i) => (
               <div key={i} className="flex-1 flex flex-col sm:flex-row items-center gap-4">
-                <div className="flex-1 bg-white border border-forest-100 rounded-xl p-5 text-center hover:border-forest-300 hover:shadow-md transition-all">
-                  <div className="w-12 h-12 rounded-full bg-forest-50 flex items-center justify-center mx-auto mb-3">
-                    <step.icon size={22} className="text-forest-600" />
+                <div className="flex-1 bg-forest-800/60 border border-forest-600/25 rounded-xl p-5 text-center hover:border-forest-400/40 hover:bg-forest-800/80 transition-all">
+                  <div className="w-12 h-12 rounded-full bg-forest-700/50 flex items-center justify-center mx-auto mb-3">
+                    <step.icon size={22} className="text-forest-300" />
                   </div>
-                  <div className="text-xs font-bold text-forest-400 uppercase tracking-wider mb-1" style={{ fontFamily: "var(--font-mono)" }}>
+                  <div className="text-xs font-bold text-amber-500/80 uppercase tracking-wider mb-1" style={{ fontFamily: "var(--font-mono)" }}>
                     {t("Step", "步骤")} {i + 1}
                   </div>
-                  <h4 className="text-sm font-bold text-forest-800 mb-1" style={{ fontFamily: "var(--font-body)" }}>
+                  <h4 className="text-sm font-bold text-white mb-1" style={{ fontFamily: "var(--font-body)" }}>
                     {lang === "en" ? step.labelEn : step.labelCn}
                   </h4>
-                  <p className="text-xs text-forest-500" style={{ fontFamily: "var(--font-body)" }}>
+                  <p className="text-xs text-forest-400" style={{ fontFamily: "var(--font-body)" }}>
                     {lang === "en" ? step.descEn : step.descCn}
                   </p>
                 </div>
                 {i < pipeline.length - 1 && (
-                  <ArrowRight size={20} className="text-forest-300 hidden sm:block flex-shrink-0" />
+                  <ArrowRight size={20} className="text-forest-500 hidden sm:block flex-shrink-0" />
                 )}
               </div>
             ))}
