@@ -1,54 +1,60 @@
 /**
- * Network Section — Dark Canopy Theme
- * Interactive dark-themed Leaflet map with all 22 monitoring sites.
- * Pulsing markers + popup info + filterable site table.
+ * Network Section — Fresh Forest Theme
+ * Interactive Leaflet map with China filter, Yellow River Basin overlay,
+ * and filterable site table. Bilingual support.
  */
-import { useState, useMemo } from "react";
-import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from "react-leaflet";
+import { useState, useMemo, useEffect } from "react";
+import { MapContainer, TileLayer, CircleMarker, Popup, Polygon, useMap } from "react-leaflet";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { MapPin, Filter } from "lucide-react";
-import { monitoringSites, regions, type MonitoringSite } from "@/lib/siteData";
+import { monitoringSites, regions, regionsCn, yellowRiverBasinCoords, type MonitoringSite } from "@/lib/siteData";
+import { useLang } from "@/contexts/LanguageContext";
 import "leaflet/dist/leaflet.css";
 
-function FitBounds({ sites }: { sites: MonitoringSite[] }) {
+function FitBounds({ sites, showChina }: { sites: MonitoringSite[]; showChina: boolean }) {
   const map = useMap();
-  useMemo(() => {
+  useEffect(() => {
     if (sites.length > 0) {
-      const bounds = sites.map((s) => [s.latitude, s.longitude] as [number, number]);
-      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 5 });
+      if (showChina) {
+        // Zoom to China region
+        map.fitBounds([[18, 73], [54, 135]], { padding: [30, 30], maxZoom: 5 });
+      } else {
+        const bounds = sites.map((s) => [s.latitude, s.longitude] as [number, number]);
+        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 5 });
+      }
     }
-  }, [sites, map]);
+  }, [sites, showChina, map]);
   return null;
 }
 
-function SiteMarker({ site }: { site: MonitoringSite }) {
+function SiteMarker({ site, lang }: { site: MonitoringSite; lang: string }) {
   return (
     <CircleMarker
       center={[site.latitude, site.longitude]}
       radius={8}
       pathOptions={{
-        color: "#c8963e",
-        fillColor: "#c8963e",
-        fillOpacity: 0.7,
+        color: "#2d7a4a",
+        fillColor: "#3d9a5a",
+        fillOpacity: 0.75,
         weight: 2,
         opacity: 0.9,
       }}
     >
       <Popup>
         <div className="min-w-[200px]">
-          <h4 className="text-base font-bold text-[#c8963e] mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
-            {site.nameEn}
+          <h4 className="text-base font-bold text-forest-800 mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
+            {lang === "en" ? site.nameEn : site.nameCn}
           </h4>
-          <p className="text-sm text-[#e8e4dd] mb-2" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
-            {site.nameCn}
+          <p className="text-sm text-forest-600 mb-2" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+            {lang === "en" ? site.nameCn : site.nameEn}
           </p>
-          <div className="flex gap-4 text-xs text-[#a8b4ac]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+          <div className="flex gap-4 text-xs text-forest-500" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
             <span>Lon: {site.longitude.toFixed(2)}</span>
             <span>Lat: {site.latitude.toFixed(2)}</span>
           </div>
-          <div className="mt-2 text-xs text-[#8a9a8f]" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
-            Region: {site.region}
+          <div className="mt-2 text-xs text-forest-400" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+            {lang === "en" ? site.region : regionsCn[site.region] || site.region}
           </div>
         </div>
       </Popup>
@@ -57,19 +63,22 @@ function SiteMarker({ site }: { site: MonitoringSite }) {
 }
 
 export default function NetworkSection() {
+  const { lang, t } = useLang();
   const [ref, inView] = useInView({ threshold: 0.05, triggerOnce: true });
   const [activeRegion, setActiveRegion] = useState("All");
 
-  const filteredSites = useMemo(
-    () => activeRegion === "All" ? monitoringSites : monitoringSites.filter((s) => s.region === activeRegion),
-    [activeRegion]
-  );
+  const isChina = activeRegion === "China";
+  const isChinaSubRegion = ["North China", "Northeast", "Northwest", "Central China", "East China"].includes(activeRegion);
+  const showYellowRiver = isChina || isChinaSubRegion;
+
+  const filteredSites = useMemo(() => {
+    if (activeRegion === "All") return monitoringSites;
+    if (activeRegion === "China") return monitoringSites.filter((s) => s.region !== "International");
+    return monitoringSites.filter((s) => s.region === activeRegion);
+  }, [activeRegion]);
 
   return (
-    <section id="network" className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d1f17] via-[#0a1a12] to-[#0d1f17]" />
-
+    <section id="network" className="relative py-24 lg:py-32 overflow-hidden bg-cream">
       <div ref={ref} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -78,11 +87,11 @@ export default function NetworkSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-12 lg:mb-16"
         >
-          <span className="text-[#c8963e] text-sm font-[family-name:var(--font-body)] font-semibold tracking-[0.2em] uppercase">
-            Monitoring Network
+          <span className="text-forest-600 text-sm font-[family-name:var(--font-body)] font-semibold tracking-[0.2em] uppercase">
+            {t("Monitoring Network", "监测网络")}
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e8e4dd]">
-            22 Sites Across China & Beyond
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-forest-900">
+            {t("22 Sites Across China & Beyond", "覆盖中国及海外的22个站点")}
           </h2>
           <div className="mt-6 section-divider max-w-xs mx-auto" />
         </motion.div>
@@ -94,18 +103,18 @@ export default function NetworkSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-2 mb-8"
         >
-          <Filter size={16} className="text-[#8a9a8f] mt-2 mr-1" />
+          <Filter size={16} className="text-forest-400 mt-2 mr-1" />
           {regions.map((region) => (
             <button
               key={region}
               onClick={() => setActiveRegion(region)}
               className={`px-4 py-2 rounded-full text-sm font-[family-name:var(--font-body)] font-medium transition-all duration-300 ${
                 activeRegion === region
-                  ? "bg-[#c8963e] text-[#0d1f17]"
-                  : "bg-[#1a3a2a]/40 text-[#a8b4ac] border border-[#2d5a3f]/30 hover:border-[#c8963e]/30 hover:text-[#e8e4dd]"
+                  ? "bg-forest-600 text-white shadow-md"
+                  : "bg-white text-forest-600 border border-forest-200 hover:border-forest-400 hover:text-forest-800"
               }`}
             >
-              {region}
+              {lang === "en" ? region : regionsCn[region] || region}
             </button>
           ))}
         </motion.div>
@@ -115,7 +124,7 @@ export default function NetworkSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative rounded-2xl overflow-hidden border border-[#2d5a3f]/30 shadow-2xl shadow-black/40"
+          className="relative rounded-2xl overflow-hidden border border-forest-200 shadow-xl bg-white"
         >
           <div className="h-[450px] sm:h-[500px] lg:h-[600px]">
             <MapContainer
@@ -126,25 +135,53 @@ export default function NetworkSection() {
               scrollWheelZoom={true}
             >
               <TileLayer
-                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>'
               />
-              <FitBounds sites={filteredSites} />
+              <FitBounds sites={filteredSites} showChina={isChina || isChinaSubRegion} />
+
+              {/* Yellow River Basin overlay */}
+              {showYellowRiver && (
+                <Polygon
+                  positions={yellowRiverBasinCoords}
+                  pathOptions={{
+                    color: "#b8860b",
+                    fillColor: "#daa520",
+                    fillOpacity: 0.12,
+                    weight: 2,
+                    dashArray: "6 4",
+                    opacity: 0.6,
+                  }}
+                />
+              )}
+
               {filteredSites.map((site) => (
-                <SiteMarker key={site.id} site={site} />
+                <SiteMarker key={site.id} site={site} lang={lang} />
               ))}
             </MapContainer>
           </div>
 
           {/* Map overlay info */}
-          <div className="absolute top-4 right-4 z-[1000] bg-[#0d1f17]/80 backdrop-blur-sm border border-[#2d5a3f]/30 rounded-lg px-4 py-2">
+          <div className="absolute top-4 right-4 z-[1000] bg-white/90 backdrop-blur-sm border border-forest-200 rounded-lg px-4 py-2 shadow-sm">
             <div className="flex items-center gap-2">
-              <MapPin size={14} className="text-[#c8963e]" />
-              <span className="text-sm text-[#e8e4dd] font-[family-name:var(--font-mono)]">
-                {filteredSites.length} sites
+              <MapPin size={14} className="text-forest-600" />
+              <span className="text-sm text-forest-800 font-[family-name:var(--font-mono)]">
+                {filteredSites.length} {t("sites", "站点")}
               </span>
             </div>
           </div>
+
+          {/* Yellow River legend */}
+          {showYellowRiver && (
+            <div className="absolute bottom-4 left-4 z-[1000] bg-white/90 backdrop-blur-sm border border-forest-200 rounded-lg px-3 py-2 shadow-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-3 rounded-sm border border-amber-600/60" style={{ background: "rgba(218, 165, 32, 0.2)" }} />
+                <span className="text-xs text-forest-700 font-[family-name:var(--font-body)]">
+                  {t("Yellow River Basin", "黄河流域")}
+                </span>
+              </div>
+            </div>
+          )}
         </motion.div>
 
         {/* Site Table */}
@@ -152,28 +189,28 @@ export default function NetworkSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-12 overflow-x-auto"
+          className="mt-12 overflow-x-auto bg-white rounded-xl border border-forest-200 shadow-sm"
         >
           <table className="w-full border-collapse">
             <thead>
-              <tr className="border-b border-[#2d5a3f]/50">
-                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-[#c8963e] tracking-wide uppercase">
+              <tr className="border-b border-forest-100 bg-forest-50/50">
+                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-forest-700 tracking-wide uppercase">
                   #
                 </th>
-                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-[#c8963e] tracking-wide uppercase">
-                  Site (Chinese)
+                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-forest-700 tracking-wide uppercase">
+                  {t("Site (Chinese)", "站点（中文）")}
                 </th>
-                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-[#c8963e] tracking-wide uppercase">
-                  Site (English)
+                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-forest-700 tracking-wide uppercase">
+                  {t("Site (English)", "站点（英文）")}
                 </th>
-                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-[#c8963e] tracking-wide uppercase">
-                  Longitude
+                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-forest-700 tracking-wide uppercase">
+                  {t("Longitude", "经度")}
                 </th>
-                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-[#c8963e] tracking-wide uppercase">
-                  Latitude
+                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-forest-700 tracking-wide uppercase">
+                  {t("Latitude", "纬度")}
                 </th>
-                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-[#c8963e] tracking-wide uppercase">
-                  Region
+                <th className="text-left py-4 px-4 text-sm font-[family-name:var(--font-body)] font-semibold text-forest-700 tracking-wide uppercase">
+                  {t("Region", "区域")}
                 </th>
               </tr>
             </thead>
@@ -181,26 +218,26 @@ export default function NetworkSection() {
               {filteredSites.map((site, i) => (
                 <tr
                   key={site.id}
-                  className="border-b border-[#2d5a3f]/20 hover:bg-[#1a3a2a]/30 transition-colors"
+                  className="border-b border-forest-50 hover:bg-forest-50/50 transition-colors"
                 >
-                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-mono)] text-[#8a9a8f]">
+                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-mono)] text-forest-400">
                     {String(i + 1).padStart(2, "0")}
                   </td>
-                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-body)] text-[#e8e4dd]">
+                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-body)] text-forest-800">
                     {site.nameCn}
                   </td>
-                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-body)] text-[#c8c4bc]">
+                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-body)] text-forest-600">
                     {site.nameEn}
                   </td>
-                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-mono)] text-[#a8b4ac]">
+                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-mono)] text-forest-500">
                     {site.longitude.toFixed(2)}
                   </td>
-                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-mono)] text-[#a8b4ac]">
+                  <td className="py-3 px-4 text-sm font-[family-name:var(--font-mono)] text-forest-500">
                     {site.latitude.toFixed(2)}
                   </td>
                   <td className="py-3 px-4">
-                    <span className="inline-block px-3 py-1 text-xs font-[family-name:var(--font-body)] font-medium rounded-full bg-[#2d5a3f]/30 text-[#a8b4ac] border border-[#2d5a3f]/30">
-                      {site.region}
+                    <span className="inline-block px-3 py-1 text-xs font-[family-name:var(--font-body)] font-medium rounded-full bg-forest-50 text-forest-600 border border-forest-200">
+                      {lang === "en" ? site.region : regionsCn[site.region] || site.region}
                     </span>
                   </td>
                 </tr>

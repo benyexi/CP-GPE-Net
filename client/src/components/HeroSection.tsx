@@ -1,26 +1,14 @@
 /**
- * Hero Section — Dark Canopy Theme
- * Full-viewport hero with parallax background, floating particles, and stats bar.
- * Background: poplar plantation at golden hour.
+ * Hero Section — Fresh Forest Theme
+ * Full-viewport hero with bright plantation background, floating leaf particles, and stats bar.
  */
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
+import { stats } from "@/lib/siteData";
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663359140716/DQQrZGCEBPNpsfdCo2rcVJ/hero-bg-NEmSrjREmfXSQoebnVJgNH.webp";
-
-interface StatItem {
-  label: string;
-  value: number;
-  suffix?: string;
-}
-
-const stats: StatItem[] = [
-  { label: "Monitoring Sites", value: 22 },
-  { label: "Species Monitored", value: 12, suffix: "+" },
-  { label: "Years of Data", value: 15, suffix: "+" },
-  { label: "International Partners", value: 1, suffix: "" },
-];
+const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663359140716/DQQrZGCEBPNpsfdCo2rcVJ/hero-fresh_c1620609.jpg";
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -32,15 +20,13 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
-          let start = 0;
           const duration = 2000;
           const startTime = performance.now();
           const animate = (currentTime: number) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
-            start = Math.floor(eased * target);
-            setCount(start);
+            setCount(Math.floor(eased * target));
             if (progress < 1) requestAnimationFrame(animate);
           };
           requestAnimationFrame(animate);
@@ -53,13 +39,13 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   }, [target]);
 
   return (
-    <span ref={ref} className="font-[family-name:var(--font-mono)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[#c8963e]">
+    <span ref={ref} className="font-[family-name:var(--font-mono)] text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
       {count}{suffix}
     </span>
   );
 }
 
-function Particles() {
+function LeafParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -69,7 +55,7 @@ function Particles() {
     if (!ctx) return;
 
     let animationId: number;
-    const particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number; pulse: number }[] = [];
+    const particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number; rotation: number; rotSpeed: number }[] = [];
 
     const resize = () => {
       canvas.width = canvas.offsetWidth;
@@ -78,16 +64,16 @@ function Particles() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Create particles
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 25; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3 - 0.15,
-        size: Math.random() * 3 + 1,
-        opacity: Math.random() * 0.5 + 0.2,
-        pulse: Math.random() * Math.PI * 2,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: Math.random() * 0.3 + 0.1,
+        size: Math.random() * 4 + 2,
+        opacity: Math.random() * 0.3 + 0.1,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.02,
       });
     }
 
@@ -96,24 +82,20 @@ function Particles() {
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
-        p.pulse += 0.02;
+        p.rotation += p.rotSpeed;
 
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
+        if (p.y > canvas.height + 10) { p.y = -10; p.x = Math.random() * canvas.width; }
+        if (p.x < -10) p.x = canvas.width + 10;
+        if (p.x > canvas.width + 10) p.x = -10;
 
-        const alpha = p.opacity * (0.5 + 0.5 * Math.sin(p.pulse));
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 150, 62, ${alpha})`;
+        ctx.ellipse(0, 0, p.size, p.size * 0.6, 0, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
         ctx.fill();
-
-        // Glow
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 150, 62, ${alpha * 0.15})`;
-        ctx.fill();
+        ctx.restore();
       });
       animationId = requestAnimationFrame(draw);
     };
@@ -129,6 +111,7 @@ function Particles() {
 }
 
 export default function HeroSection() {
+  const { lang, t } = useLang();
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -147,12 +130,11 @@ export default function HeroSection() {
           transform: `translateY(${scrollY * 0.3}px)`,
         }}
       />
-      {/* Dark overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d1f17]/70 via-[#0d1f17]/50 to-[#0d1f17]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0d1f17]/60 via-transparent to-[#0d1f17]/60" />
+      {/* Gradient overlay — lighter, nature-inspired */}
+      <div className="absolute inset-0 bg-gradient-to-b from-forest-900/50 via-forest-800/40 to-forest-900/70" />
+      <div className="absolute inset-0 bg-gradient-to-r from-forest-900/30 via-transparent to-forest-900/30" />
 
-      {/* Particles */}
-      <Particles />
+      <LeafParticles />
 
       {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
@@ -167,18 +149,18 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#c8963e]/10 border border-[#c8963e]/20 mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 border border-white/20 backdrop-blur-sm mb-8"
           >
-            <span className="w-2 h-2 rounded-full bg-[#c8963e] animate-pulse" />
-            <span className="text-[#c8963e] text-sm font-[family-name:var(--font-body)] font-medium tracking-wide">
-              Beijing Forestry University
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <span className="text-white/90 text-sm font-[family-name:var(--font-body)] font-medium tracking-wide">
+              {t("Beijing Forestry University", "北京林业大学")}
             </span>
           </motion.div>
 
           {/* Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-[#e8e4dd] leading-[1.1] tracking-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.1] tracking-tight mb-6">
             <span className="block">CP-GPE</span>
-            <span className="block text-[#c8963e]">Net</span>
+            <span className="block text-green-300">Net</span>
           </h1>
 
           {/* Full name */}
@@ -186,9 +168,12 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-base sm:text-lg md:text-xl text-[#a8b4ac] font-[family-name:var(--font-body)] font-light tracking-widest uppercase mb-6 max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl text-white/80 font-[family-name:var(--font-body)] font-light tracking-widest uppercase mb-6 max-w-3xl mx-auto"
           >
-            China Plantation Growth, Physiology & Ecology Network
+            {t(
+              "China Plantation Growth, Physiology & Ecology Network",
+              "中国人工林生长、生理与生态监测网络"
+            )}
           </motion.p>
 
           {/* Tagline */}
@@ -196,9 +181,12 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
-            className="text-lg sm:text-xl md:text-2xl text-[#e8e4dd]/80 font-[family-name:var(--font-display)] italic max-w-2xl mx-auto mb-10"
+            className="text-lg sm:text-xl md:text-2xl text-white/90 font-[family-name:var(--font-display)] italic max-w-2xl mx-auto mb-10"
           >
-            Monitoring Plantation Water, Growth, and Ecology Across China and Beyond
+            {t(
+              "Monitoring Plantation Water, Growth, and Ecology Across China and Beyond",
+              "监测中国及全球人工林水分、生长与生态"
+            )}
           </motion.p>
 
           {/* CTA */}
@@ -209,11 +197,10 @@ export default function HeroSection() {
           >
             <button
               onClick={() => document.getElementById("network")?.scrollIntoView({ behavior: "smooth" })}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-[#c8963e] text-[#0d1f17] font-[family-name:var(--font-body)] font-semibold text-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(200,150,62,0.3)]"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-forest-800 font-[family-name:var(--font-body)] font-semibold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.25)] hover:bg-forest-50"
             >
-              <span className="relative z-10">Explore the Network</span>
+              <span className="relative z-10">{t("Explore the Network", "探索监测网络")}</span>
               <ChevronDown size={20} className="relative z-10 group-hover:translate-y-1 transition-transform" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#d4a84b] to-[#c8963e] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
           </motion.div>
         </motion.div>
@@ -226,13 +213,13 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.3, duration: 0.8 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 bg-[#0d1f17]/60 backdrop-blur-lg border border-[#2d5a3f]/30 rounded-2xl p-6 lg:p-8"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 bg-forest-900/40 backdrop-blur-lg border border-white/15 rounded-2xl p-6 lg:p-8"
           >
             {stats.map((stat, i) => (
               <div key={i} className="text-center">
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                <p className="mt-2 text-sm text-[#a8b4ac] font-[family-name:var(--font-body)] font-medium tracking-wide uppercase">
-                  {stat.label}
+                <p className="mt-2 text-sm text-white/70 font-[family-name:var(--font-body)] font-medium tracking-wide uppercase">
+                  {lang === "en" ? stat.labelEn : stat.labelCn}
                 </p>
               </div>
             ))}
@@ -247,11 +234,8 @@ export default function HeroSection() {
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        >
-          <ChevronDown size={24} className="text-[#c8963e]/50" />
+        <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}>
+          <ChevronDown size={24} className="text-white/40" />
         </motion.div>
       </motion.div>
     </section>

@@ -1,69 +1,73 @@
 /**
- * Footer — Dark Canopy Theme
- * Logo, tagline, quick links, affiliations, copyright.
+ * Footer — Fresh Forest Theme
+ * Logo, tagline, quick links, affiliations, copyright. Bilingual.
  */
 import { TreePine } from "lucide-react";
-
-const quickLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Network", href: "#network" },
-  { label: "Research", href: "#research" },
-  { label: "Data", href: "#data" },
-  { label: "News", href: "#news" },
-  { label: "Join Us", href: "#join" },
-];
-
-const affiliations = [
-  "Beijing Forestry University",
-  "National Key R&D Program",
-  "Three-North Shelterbelt Program",
-];
+import { useLang } from "@/contexts/LanguageContext";
 
 export default function Footer() {
+  const { lang, t } = useLang();
+
+  const quickLinks = [
+    { en: "Home", cn: "首页", href: "#home" },
+    { en: "About", cn: "关于", href: "#about" },
+    { en: "Network", cn: "监测网络", href: "#network" },
+    { en: "Research", cn: "研究", href: "#research" },
+    { en: "Data", cn: "数据", href: "#data" },
+    { en: "News", cn: "动态", href: "#news" },
+    { en: "Join Us", cn: "合作", href: "#join" },
+  ];
+
+  const affiliations = [
+    t("Beijing Forestry University", "北京林业大学"),
+    t("National Key R&D Program", "国家重点研发计划"),
+    t("Three-North Shelterbelt Program", "三北防护林工程"),
+  ];
+
   const scrollTo = (href: string) => {
     const el = document.getElementById(href.slice(1));
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <footer className="relative bg-[#0a1a12] border-t border-[#2d5a3f]/20">
+    <footer className="relative bg-forest-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-3 gap-12">
           {/* Logo & Tagline */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#c8963e] to-[#8a6a2e] flex items-center justify-center shadow-lg shadow-[#c8963e]/20">
-                <TreePine size={20} className="text-[#0d1f17]" />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-forest-400 to-forest-600 flex items-center justify-center shadow-lg">
+                <TreePine size={20} className="text-white" />
               </div>
-              <div>
-                <span className="text-[#e8e4dd] font-bold text-lg font-[family-name:var(--font-display)]">
-                  CP-GPE Net
-                </span>
-              </div>
+              <span className="text-white font-bold text-lg font-[family-name:var(--font-display)]">
+                CP-GPE Net
+              </span>
             </div>
-            <p className="text-sm text-[#8a9a8f] font-[family-name:var(--font-body)] leading-relaxed max-w-xs">
-              Monitoring Plantation Water, Growth, and Ecology Across China and Beyond
+            <p className="text-sm text-forest-300 font-[family-name:var(--font-body)] leading-relaxed max-w-xs">
+              {t(
+                "Monitoring Plantation Water, Growth, and Ecology Across China and Beyond",
+                "监测中国及全球人工林水分、生长与生态"
+              )}
             </p>
-            <p className="mt-4 text-xs text-[#5a6a5f] font-[family-name:var(--font-body)]">
-              Plantation Water Relations Lab (PWRlab)<br />
-              Beijing Forestry University
+            <p className="mt-4 text-xs text-forest-400 font-[family-name:var(--font-body)]">
+              {t("Plantation Water Relations Lab (PWRlab)", "人工林水分关系实验室（PWRlab）")}<br />
+              {t("Beijing Forestry University", "北京林业大学")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm text-[#c8963e] font-[family-name:var(--font-body)] font-semibold tracking-[0.15em] uppercase mb-6">
-              Quick Links
+            <h4 className="text-sm text-forest-300 font-[family-name:var(--font-body)] font-semibold tracking-[0.15em] uppercase mb-6">
+              {t("Quick Links", "快速导航")}
             </h4>
             <nav className="grid grid-cols-2 gap-2">
               {quickLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
-                  className="text-left text-sm text-[#a8b4ac] font-[family-name:var(--font-body)] hover:text-[#c8963e] transition-colors py-1"
+                  className="text-left text-sm text-forest-300 font-[family-name:var(--font-body)] hover:text-white transition-colors py-1"
                 >
-                  {link.label}
+                  {lang === "en" ? link.en : link.cn}
                 </button>
               ))}
             </nav>
@@ -71,12 +75,12 @@ export default function Footer() {
 
           {/* Affiliations */}
           <div>
-            <h4 className="text-sm text-[#c8963e] font-[family-name:var(--font-body)] font-semibold tracking-[0.15em] uppercase mb-6">
-              Affiliations
+            <h4 className="text-sm text-forest-300 font-[family-name:var(--font-body)] font-semibold tracking-[0.15em] uppercase mb-6">
+              {t("Affiliations", "隶属机构")}
             </h4>
             <div className="space-y-3">
               {affiliations.map((a, i) => (
-                <p key={i} className="text-sm text-[#a8b4ac] font-[family-name:var(--font-body)]">
+                <p key={i} className="text-sm text-forest-300 font-[family-name:var(--font-body)]">
                   {a}
                 </p>
               ))}
@@ -85,13 +89,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-[#2d5a3f]/20">
+        <div className="mt-12 pt-8 border-t border-forest-700/50">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-[#5a6a5f] font-[family-name:var(--font-body)]">
-              &copy; {new Date().getFullYear()} CP-GPE Net | PWRlab, Beijing Forestry University. All rights reserved.
+            <p className="text-xs text-forest-400 font-[family-name:var(--font-body)]">
+              &copy; {new Date().getFullYear()} CP-GPE Net | PWRlab, {t("Beijing Forestry University", "北京林业大学")}. {t("All rights reserved.", "版权所有。")}
             </p>
-            <p className="text-xs text-[#5a6a5f] font-[family-name:var(--font-body)]">
-              Built for advancing plantation science worldwide.
+            <p className="text-xs text-forest-400 font-[family-name:var(--font-body)]">
+              {t("Built for advancing plantation science worldwide.", "致力于推进全球人工林科学发展。")}
             </p>
           </div>
         </div>

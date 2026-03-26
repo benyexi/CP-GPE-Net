@@ -1,7 +1,6 @@
 /**
  * Home Page — CP-GPE Net
- * Single-page scroll layout assembling all sections.
- * Design: Dark Canopy theme — deep forest green, amber gold accents, scientific elegance.
+ * Single-page scroll layout. Fresh Forest theme — light, clean, nature-inspired.
  */
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -15,7 +14,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#0d1f17] text-[#e8e4dd]">
+    <div className="min-h-screen bg-warm-50 text-forest-900">
       <Navbar />
       <main>
         <HeroSection />

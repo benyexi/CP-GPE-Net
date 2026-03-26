@@ -40,53 +40,61 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  /* Custom CP-GPE Net colors */
-  --color-forest-deep: oklch(0.15 0.03 155);
-  --color-forest-dark: oklch(0.22 0.04 155);
-  --color-forest-mid: oklch(0.32 0.06 155);
-  --color-amber-gold: oklch(0.72 0.12 75);
-  --color-amber-light: oklch(0.82 0.10 75);
-  --color-moss: oklch(0.38 0.06 155);
-  --color-warm-white: oklch(0.93 0.01 80);
+  /* Fresh Forest palette */
+  --color-forest-900: oklch(0.22 0.04 155);
+  --color-forest-800: oklch(0.28 0.05 155);
+  --color-forest-700: oklch(0.34 0.06 152);
+  --color-forest-600: oklch(0.42 0.08 150);
+  --color-forest-500: oklch(0.50 0.10 148);
+  --color-forest-400: oklch(0.58 0.09 148);
+  --color-forest-300: oklch(0.68 0.07 150);
+  --color-forest-200: oklch(0.80 0.04 150);
+  --color-forest-100: oklch(0.90 0.02 150);
+  --color-forest-50: oklch(0.96 0.01 150);
+  --color-amber-600: oklch(0.65 0.16 65);
+  --color-amber-500: oklch(0.72 0.14 70);
+  --color-amber-400: oklch(0.78 0.12 72);
+  --color-cream: oklch(0.97 0.005 90);
+  --color-warm-50: oklch(0.98 0.003 80);
   --font-display: "Playfair Display", Georgia, serif;
   --font-body: "Source Sans 3", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
 
 :root {
-  --radius: 0.5rem;
-  --background: oklch(0.12 0.025 155);
-  --foreground: oklch(0.93 0.01 80);
-  --card: oklch(0.16 0.03 155);
-  --card-foreground: oklch(0.93 0.01 80);
-  --popover: oklch(0.16 0.03 155);
-  --popover-foreground: oklch(0.93 0.01 80);
-  --primary: oklch(0.72 0.12 75);
-  --primary-foreground: oklch(0.12 0.025 155);
-  --secondary: oklch(0.22 0.04 155);
-  --secondary-foreground: oklch(0.85 0.01 80);
-  --muted: oklch(0.20 0.03 155);
-  --muted-foreground: oklch(0.65 0.02 155);
-  --accent: oklch(0.22 0.04 155);
-  --accent-foreground: oklch(0.93 0.01 80);
+  --radius: 0.625rem;
+  --background: oklch(0.98 0.003 80);
+  --foreground: oklch(0.22 0.04 155);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.04 155);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.04 155);
+  --primary: oklch(0.42 0.08 150);
+  --primary-foreground: oklch(0.98 0.003 80);
+  --secondary: oklch(0.96 0.01 150);
+  --secondary-foreground: oklch(0.34 0.06 152);
+  --muted: oklch(0.95 0.008 150);
+  --muted-foreground: oklch(0.50 0.04 155);
+  --accent: oklch(0.93 0.015 150);
+  --accent-foreground: oklch(0.28 0.05 155);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.28 0.04 155);
-  --input: oklch(0.25 0.035 155);
-  --ring: oklch(0.72 0.12 75);
-  --chart-1: oklch(0.72 0.12 75);
-  --chart-2: oklch(0.55 0.10 155);
-  --chart-3: oklch(0.45 0.08 155);
-  --chart-4: oklch(0.35 0.06 155);
-  --chart-5: oklch(0.65 0.08 75);
-  --sidebar: oklch(0.14 0.025 155);
-  --sidebar-foreground: oklch(0.93 0.01 80);
-  --sidebar-primary: oklch(0.72 0.12 75);
-  --sidebar-primary-foreground: oklch(0.12 0.025 155);
-  --sidebar-accent: oklch(0.22 0.04 155);
-  --sidebar-accent-foreground: oklch(0.93 0.01 80);
-  --sidebar-border: oklch(0.28 0.04 155);
-  --sidebar-ring: oklch(0.72 0.12 75);
+  --border: oklch(0.90 0.015 150);
+  --input: oklch(0.92 0.01 150);
+  --ring: oklch(0.42 0.08 150);
+  --chart-1: oklch(0.42 0.08 150);
+  --chart-2: oklch(0.50 0.10 148);
+  --chart-3: oklch(0.58 0.09 148);
+  --chart-4: oklch(0.68 0.07 150);
+  --chart-5: oklch(0.72 0.14 70);
+  --sidebar: oklch(0.96 0.01 150);
+  --sidebar-foreground: oklch(0.22 0.04 155);
+  --sidebar-primary: oklch(0.42 0.08 150);
+  --sidebar-primary-foreground: oklch(0.98 0.003 80);
+  --sidebar-accent: oklch(0.93 0.015 150);
+  --sidebar-accent-foreground: oklch(0.28 0.05 155);
+  --sidebar-border: oklch(0.90 0.015 150);
+  --sidebar-ring: oklch(0.42 0.08 150);
 }
 
 @layer base {
@@ -148,82 +156,65 @@
   }
 }
 
-/* Custom scrollbar for dark theme */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d1f17;
+  background: #f5f5f0;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2d5a3f;
-  border-radius: 4px;
+  background: #8aab8a;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c8963e;
+  background: #5a8a5a;
 }
 
-/* Leaflet overrides for dark theme */
+/* Leaflet overrides for fresh light theme */
 .leaflet-container {
-  background: #0a1a12 !important;
+  background: #f0f5ee !important;
 }
 .leaflet-control-zoom a {
-  background: #1a3a2a !important;
-  color: #e8e4dd !important;
-  border-color: #2d5a3f !important;
+  background: #ffffff !important;
+  color: #2d5a3f !important;
+  border-color: #d4e4d4 !important;
 }
 .leaflet-control-zoom a:hover {
-  background: #2d5a3f !important;
+  background: #f0f5ee !important;
 }
 .leaflet-control-attribution {
-  background: rgba(13, 31, 23, 0.8) !important;
-  color: #8a9a8f !important;
+  background: rgba(255,255,255,0.85) !important;
+  color: #5a7a5a !important;
+  font-size: 10px !important;
 }
 .leaflet-control-attribution a {
-  color: #c8963e !important;
+  color: #2d5a3f !important;
 }
 .leaflet-popup-content-wrapper {
-  background: #1a3a2a !important;
-  color: #e8e4dd !important;
-  border-radius: 8px !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+  background: #ffffff !important;
+  color: #1a3a2a !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  border: 1px solid #e0ece0 !important;
 }
 .leaflet-popup-tip {
-  background: #1a3a2a !important;
+  background: #ffffff !important;
 }
 .leaflet-popup-close-button {
-  color: #c8963e !important;
+  color: #2d5a3f !important;
 }
 
-/* Pulsing marker animation */
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.5);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(2.5);
-    opacity: 0;
-  }
-}
-
-.pulse-marker {
-  position: relative;
-}
-.pulse-marker::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: rgba(200, 150, 62, 0.4);
-  animation: pulse-ring 2s ease-out infinite;
-  top: 0;
-  left: 0;
-}
-
-/* Section divider */
+/* Section divider — organic leaf-vein line */
 .section-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, #2d5a3f, #c8963e, #2d5a3f, transparent);
+  background: linear-gradient(90deg, transparent, #b8d4b8, #8aab8a, #b8d4b8, transparent);
+}
+
+/* Yellow River Basin overlay */
+.yellow-river-overlay {
+  fill: rgba(200, 170, 80, 0.15);
+  stroke: rgba(180, 140, 50, 0.6);
+  stroke-width: 2;
+  stroke-dasharray: 6 3;
 }
