@@ -5,11 +5,11 @@
  * Default view: China center [35, 105] zoom 4.
  */
 import { useState, useMemo, useEffect, useCallback, useRef } from "react";
-import { MapContainer, TileLayer, CircleMarker, Popup, Polygon, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from "react-leaflet";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { MapPin, Filter, ExternalLink, TreePine, Mountain, Calendar, Wrench } from "lucide-react";
-import { monitoringSites, regions, regionsCn, yellowRiverBasinCoords, type MonitoringSite } from "@/lib/siteData";
+import { monitoringSites, regions, regionsCn, type MonitoringSite } from "@/lib/siteData";
 import { useLang } from "@/contexts/LanguageContext";
 import SiteDetailModal from "./SiteDetailModal";
 import "leaflet/dist/leaflet.css";
@@ -142,9 +142,6 @@ export default function NetworkSection() {
   const [selectedSite, setSelectedSite] = useState<MonitoringSite | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const isChina = activeRegion === "China";
-  const isChinaSubRegion = ["North China", "Northeast", "Northwest", "Central China", "East China"].includes(activeRegion);
-  const showYellowRiver = isChina || isChinaSubRegion;
 
   const filteredSites = useMemo(() => {
     if (activeRegion === "All") return monitoringSites;
@@ -231,20 +228,6 @@ export default function NetworkSection() {
               />
               <MapController activeRegion={activeRegion} sites={filteredSites} />
 
-              {showYellowRiver && (
-                <Polygon
-                  positions={yellowRiverBasinCoords}
-                  pathOptions={{
-                    color: "#daa520",
-                    fillColor: "#daa520",
-                    fillOpacity: 0.10,
-                    weight: 2,
-                    dashArray: "8 5",
-                    opacity: 0.7,
-                  }}
-                />
-              )}
-
               {filteredSites.map((site) => (
                 <PulsingMarker key={site.id} site={site} lang={lang} onDetailClick={handleDetailClick} />
               ))}
@@ -260,18 +243,6 @@ export default function NetworkSection() {
               </span>
             </div>
           </div>
-
-          {/* Yellow River legend */}
-          {showYellowRiver && (
-            <div className="absolute bottom-4 left-4 z-[1000] bg-white/90 backdrop-blur-sm border border-forest-200 rounded-lg px-3 py-2 shadow-lg">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-3 rounded-sm border border-amber-500/60" style={{ background: "rgba(218, 165, 32, 0.25)" }} />
-                <span className="text-xs text-forest-700" style={{ fontFamily: "var(--font-body)" }}>
-                  {t("Yellow River Basin", "黄河流域")}
-                </span>
-              </div>
-            </div>
-          )}
 
           {/* Click hint */}
           <div className="absolute bottom-4 right-4 z-[1000] bg-white/90 backdrop-blur-sm border border-forest-200 rounded-lg px-3 py-2 shadow-lg">

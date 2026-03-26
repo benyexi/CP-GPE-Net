@@ -42,7 +42,7 @@ export default function SiteDetailModal({ site, open, onOpenChange, onNavigate }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg sm:max-w-2xl max-h-[85vh] overflow-y-auto bg-white border-forest-200 p-0">
+      <DialogContent className="max-w-lg sm:max-w-2xl max-h-[85vh] overflow-y-auto bg-white border-forest-200 p-0 z-[9999]">
         {/* Header with gradient */}
         <div className="relative bg-gradient-to-br from-forest-700 via-forest-600 to-forest-800 px-6 pt-6 pb-5 text-white">
           <DialogHeader>

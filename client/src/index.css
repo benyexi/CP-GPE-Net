@@ -221,12 +221,12 @@
   background: linear-gradient(90deg, transparent, #b8d4b8, #8aab8a, #b8d4b8, transparent);
 }
 
-/* Yellow River Basin overlay */
-.yellow-river-overlay {
-  fill: rgba(200, 170, 80, 0.15);
-  stroke: rgba(180, 140, 50, 0.6);
-  stroke-width: 2;
-  stroke-dasharray: 6 3;
+/* Ensure Radix dialog overlay/content appears above Leaflet map z-index */
+[data-slot="dialog-overlay"] {
+  z-index: 9998 !important;
+}
+[data-slot="dialog-content"] {
+  z-index: 9999 !important;
 }
 
 /* Leaflet popup custom styles */
