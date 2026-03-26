@@ -7,7 +7,7 @@ import { useInView } from "react-intersection-observer";
 import { BookOpen, ExternalLink, Beaker, Droplets, TreePine, Leaf, BarChart3 } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
-const RESEARCH_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663359140716/DQQrZGCEBPNpsfdCo2rcVJ/research-fresh_c1620609.jpg";
+const RESEARCH_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663359140716/DQQrZGCEBPNpsfdCo2rcVJ/sap-flow-probe_e2ca38d6.png";
 
 export default function ResearchSection() {
   const { lang, t } = useLang();
