@@ -7,6 +7,8 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import NetworkSection from "@/components/NetworkSection";
 import ResearchSection from "@/components/ResearchSection";
+import MethodsSection from "@/components/MethodsSection";
+import TeamSection from "@/components/TeamSection";
 import DataSection from "@/components/DataSection";
 import NewsSection from "@/components/NewsSection";
 import JoinSection from "@/components/JoinSection";
@@ -18,17 +20,13 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection />
-        <div className="section-divider" />
         <AboutSection />
-        <div className="section-divider" />
         <NetworkSection />
-        <div className="section-divider" />
         <ResearchSection />
-        <div className="section-divider" />
+        <MethodsSection />
+        <TeamSection />
         <DataSection />
-        <div className="section-divider" />
         <NewsSection />
-        <div className="section-divider" />
         <JoinSection />
       </main>
       <Footer />

@@ -1,16 +1,16 @@
 /**
  * Research Section — Fresh Forest Theme
- * Focus areas, key publications, and methodology. Bilingual.
+ * Focus areas and key publications. Bilingual.
  */
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Droplets, GitBranch, BarChart3, TrendingUp, Thermometer, Microscope, Radio, Leaf } from "lucide-react";
+import { Droplets, GitBranch, BarChart3, TrendingUp, Thermometer } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
 const RESEARCH_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663359140716/DQQrZGCEBPNpsfdCo2rcVJ/research-fresh_8b0b381c.jpg";
 
 export default function ResearchSection() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const [ref, inView] = useInView({ threshold: 0.05, triggerOnce: true });
 
   const focusAreas = [
@@ -26,13 +26,6 @@ export default function ResearchSection() {
     { journal: "New Phytologist", abbr: "New Phyt", color: "#4a8ab5", desc: t("Hydraulic redistribution in plantation root systems under drought stress", "干旱胁迫下人工林根系水力再分配") },
     { journal: "Plant Physiology", abbr: "Plant Physiol", color: "#b5704a", desc: t("Nocturnal sap flow and stem water refilling in Populus species", "杨属树种夜间树液流和茎干补水") },
     { journal: "Forest Ecology and Management", abbr: "FEM", color: "#7a5ab5", desc: t("Water-carbon coupling in Three-North Shelterbelt plantations", "三北防护林人工林水碳耦合") },
-  ];
-
-  const methods = [
-    { icon: Radio, label: t("Custom TDP/HFD/Heat Ratio Sap Flow Probes", "自研TDP/HFD/热比率树液流探针") },
-    { icon: Microscope, label: t("Point Dendrometers & Band Dendrometers", "点式和环式树木径向生长仪") },
-    { icon: Leaf, label: t("Eddy Covariance Flux Towers", "涡度相关通量塔") },
-    { icon: Droplets, label: t("Stable Isotope Analysis (δ²H, δ¹⁸O)", "稳定同位素分析（δ²H, δ¹⁸O）") },
   ];
 
   return (
@@ -51,10 +44,10 @@ export default function ResearchSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 lg:mb-20"
         >
-          <span className="text-forest-600 text-sm font-[family-name:var(--font-body)] font-semibold tracking-[0.2em] uppercase">
+          <span className="text-forest-600 text-sm font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-body)" }}>
             {t("Research Focus", "研究方向")}
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-forest-900">
+          <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-forest-900" style={{ fontFamily: "var(--font-display)" }}>
             {t("Advancing Plantation Science", "推进人工林科学")}
           </h2>
           <div className="mt-6 section-divider max-w-xs mx-auto" />
@@ -77,10 +70,10 @@ export default function ResearchSection() {
                   <area.icon size={22} className="text-forest-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-forest-900 font-[family-name:var(--font-display)] mb-2">
+                  <h3 className="text-lg font-bold text-forest-900 mb-2" style={{ fontFamily: "var(--font-display)" }}>
                     {area.title}
                   </h3>
-                  <p className="text-sm text-forest-600 font-[family-name:var(--font-body)] leading-relaxed">
+                  <p className="text-sm text-forest-600 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
                     {area.desc}
                   </p>
                 </div>
@@ -94,9 +87,8 @@ export default function ResearchSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mb-20 lg:mb-28"
         >
-          <h3 className="text-2xl lg:text-3xl font-bold text-forest-900 text-center mb-12">
+          <h3 className="text-2xl lg:text-3xl font-bold text-forest-900 text-center mb-12" style={{ fontFamily: "var(--font-display)" }}>
             {t("Key Publications", "代表性论文")}
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -112,40 +104,16 @@ export default function ResearchSection() {
                   className="w-full h-1.5 rounded-full mb-4"
                   style={{ background: `linear-gradient(90deg, ${pub.color}, ${pub.color}40)` }}
                 />
-                <h4 className="text-sm font-bold text-forest-800 font-[family-name:var(--font-body)] uppercase tracking-wider mb-2">
+                <h4 className="text-sm font-bold text-forest-800 uppercase tracking-wider mb-2" style={{ fontFamily: "var(--font-body)" }}>
                   {pub.abbr}
                 </h4>
-                <p className="text-xs text-forest-500 font-[family-name:var(--font-body)] mb-3">
+                <p className="text-xs text-forest-500 mb-3" style={{ fontFamily: "var(--font-body)" }}>
                   {pub.journal}
                 </p>
-                <p className="text-sm text-forest-700 font-[family-name:var(--font-body)] leading-relaxed italic">
+                <p className="text-sm text-forest-700 leading-relaxed italic" style={{ fontFamily: "var(--font-body)" }}>
                   "{pub.desc}"
                 </p>
               </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Methodology */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <h3 className="text-2xl lg:text-3xl font-bold text-forest-900 text-center mb-12">
-            {t("Methodology & Instrumentation", "方法与仪器")}
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {methods.map((m, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-4 bg-white border border-forest-100 rounded-lg p-4 hover:border-forest-300 hover:shadow-md transition-all"
-              >
-                <m.icon size={20} className="text-forest-600 flex-shrink-0" />
-                <span className="text-sm text-forest-700 font-[family-name:var(--font-body)]">
-                  {m.label}
-                </span>
-              </div>
             ))}
           </div>
         </motion.div>
